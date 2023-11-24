@@ -1,7 +1,6 @@
 import React from "react";
 import {
       Navbar,
-      MobileNav,
       Typography,
       Button,
       Menu,
@@ -20,6 +19,7 @@ import {
 } from "@heroicons/react/24/solid";
 import SiteLogo from "./SiteLogo";
 import { NavLink } from "react-router-dom";
+import { RxDashboard, RxEnvelopeOpen } from "react-icons/rx";
 
 // profile menu component
 const profileMenuItems = [
@@ -35,7 +35,7 @@ const profileMenuItems = [
 
 function ProfileMenu() {
       const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-      const tter = true
+      const tter = false
 
       const closeMenu = () => setIsMenuOpen(false);
 
@@ -93,8 +93,14 @@ function ProfileMenu() {
                         }
                         )}
                   </MenuList>
-            </Menu> : <div>hello</div>
-      );
+            </Menu> : <div className="inline-flex rounded-md shadow-sm" role="group">
+  <NavLink to={'/login'} type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+  Login
+  </NavLink>
+  <NavLink to={'/register'} type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+    Register
+  </NavLink>
+</div>  );
 }
 
 
@@ -103,23 +109,23 @@ function ProfileMenu() {
 
 function NavList() {
       return (
-            <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:justify-center text-black ml-[100px]">
+            <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:justify-center text-black ml-[100px] gap-5">
 
-                  <NavLink
+                 { <NavLink
                         to='/'
                         className={({ isActive, isPending }) =>
-                              isPending ? "text-red-400" : isActive ? "text-green-600" : ""
+                              isPending ? "text-red-400" : isActive ? "text-blue-600" : ""
                         }
                   >
-                        Dashboard
-                  </NavLink>
+                       <div className=" flex items-center gap-2"><RxDashboard></RxDashboard> Dashboard</div>
+                  </NavLink>}
                   <NavLink
                         to='/contact'
                         className={({ isActive, isPending }) =>
-                              isPending ? "text-red-400" : isActive ? "text-green-600" : ""
+                              isPending ? "text-red-400" : isActive ? "text-blue-600" : ""
                         }
                   >
-                        Contact
+                        <div className=" flex items-center gap-2"><RxEnvelopeOpen></RxEnvelopeOpen> Contact</div>
                   </NavLink>
             </ul>
       );
