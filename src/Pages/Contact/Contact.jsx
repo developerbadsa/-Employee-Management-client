@@ -1,9 +1,12 @@
+import FaqSection from "../Home/Sections/FAQ";
+import ContactUsSec from "./Sections/ContactUsSec";
 
 const Contact = () => {
       return (
-            <div>
-                  contact
-            </div>
+            <>
+                        <ContactUsSec></ContactUsSec>
+                        <FaqSection></FaqSection>
+            </>
       );
 };
 
