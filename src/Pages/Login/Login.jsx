@@ -13,7 +13,7 @@ const Login = () => {
              email, password
          } 
 
-            console.log(LoginFormData)
+            console.log(import.meta.env.VITE_IMGAPI)
 
       }
 

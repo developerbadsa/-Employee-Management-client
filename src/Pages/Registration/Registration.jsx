@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SectionIntro from '../../Components/IntroSection/SectionIntro';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Registration = () => {
-      const handleRegister =(e)=>{
+      const [imgUrl, setImgUrl] = useState(null)
+
+      const handleImg =(e)=>{
+            const file = e.target.files[0];
+          
+            if (file) {
+                  const reader = new FileReader();
+            
+                  reader.onloadend = () => {
+                    setImgUrl(reader.result);
+                  };
+            
+                  reader.readAsDataURL(file);
+                } else {
+                  setImgUrl(null);
+                }
+      }
+        
+      const handleRegister =async (e)=>{
             e.preventDefault()
             const name = e.target.name.value
             const bankAccount = e.target.Bank.value
@@ -11,13 +30,22 @@ const Registration = () => {
             const Salary = e.target.salary.value
             const designation = e.target.designation.value
             const email = e.target.email.value
-            const photo = e.target.photo.value
+            const photo = e.target.photo.files[0]
 
          const RegisterFormData = {
             name, bankAccount, position, Salary, designation, email, photo
-         } 
+         }
 
-            console.log(RegisterFormData)
+         const imgApiSecret = import.meta.env.VITE_IMGAPI
+         const imgApi = `https://api.imgbb.com/1/upload?key=${imgApiSecret}`
+
+         const res = await axios.post(imgApi, {image:photo}, {
+            headers:{
+                  'content-type': 'multipart/form-data'
+            }
+         })
+
+            console.log(res.data.data.url)
 
       }
 
@@ -148,15 +176,16 @@ const Registration = () => {
                                                 Upload Your Photo
                                           </label>
                                           <div className="py-2 shrink-0">
-                                                <img
+                                                {imgUrl && <img
                                                       className="object-cover w-16 h-16 rounded-full"
-                                                      src="https://i.postimg.cc/bNyr5cJq/pexels-anastasia-shuraeva-5704720.jpg"
+                                                      src={imgUrl}
                                                       alt="Current profile photo"
-                                                />
+                                                />}
                                           </div>
                                           <label className="block pt-2">
                                                 <span className="sr-only ">Choose profile photo</span>
                                                 <input
+                                                      onChange={handleImg}
                                                       type="file"
                                                       name='photo'
                                                       className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold dark:file:bg-gray-600 dark:file:text-gray-200 dark:hover:file:bg-gray-700 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
