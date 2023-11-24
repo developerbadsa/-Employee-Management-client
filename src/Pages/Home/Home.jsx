@@ -1,3 +1,4 @@
+import ContactSection from "../Contact/Sections/ContactSection";
 import FaqSection from "./Sections/FAQ";
 import Services from "./Sections/Services";
 import { CarouselWithContent } from "./Sections/Slider";
@@ -11,6 +12,7 @@ const Home = () => {
                   <Services></Services>
                   <TestimonialSlider></TestimonialSlider>
                   <FaqSection></FaqSection>
+                  <ContactSection></ContactSection>
             </div>
       );
 };
