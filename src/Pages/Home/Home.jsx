@@ -1,5 +1,6 @@
 import Services from "./Sections/Services";
 import { CarouselWithContent } from "./Sections/Slider";
+import TestimonialSlider from "./Sections/TestimonialSlider/TestimonialSlider";
 
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
             <div className="">
                   <CarouselWithContent></CarouselWithContent>
                   <Services></Services>
+                  <TestimonialSlider></TestimonialSlider>
             </div>
       );
 };
