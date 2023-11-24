@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Testimonial from './Testimonial';
+import SectionIntro from '../../../../Components/IntroSection/SectionIntro';
 
 const testimonials = [  {
       imageUrl: 'https://i.postimg.cc/KvrSzTxg/alexandru-zdrobau-dj-RG1v-B1pw-unsplash.jpg',
@@ -53,11 +54,9 @@ const TestimonialSlider = () => {
   return (
     <section className="flex items-center bg-gray-100 lg:h-screen dark:bg-gray-800">
       <div className="flex flex-wrap gap-4 p-4 mx-auto max-w-7xl">
-        <div className="w-full text-center lg:text-left lg:w-[30%] info my-10 lg:my-0">
-          <h1 className="mb-4 text-3xl font-bold dark:text-white"> Testimonials </h1>
-          <p className="text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quae quam nostrum harum non in at eaque quibusdam eum ratione.
-          </p>
+        <div className="w-full text-center lg:text-left lg:w-[30%] info my-10 lg:my-0 px-4">
+          <SectionIntro title= ' Testimonials' description={' Discover what users are saying about our employee management system. Read testimonials from HR professionals, team leads, IT specialists, and more to understand the real-world impact of our platform. Our users share their experiences on how our system has transformed their daily workflows, improved collaboration, enhanced security, and streamlined processes. Join the growing community of satisfied users who have found success in managing their workforce more efficiently and effectively. Your success story could be the next one featured here!'}></SectionIntro>
+
         </div>
         <div className="flex-1">
           <div className="grid grid-cols-1 gap-4 lg:gap-4 sm:gap-4 sm:grid-cols-2 lg:grid-cols-2">
