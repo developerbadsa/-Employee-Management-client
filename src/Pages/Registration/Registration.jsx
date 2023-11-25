@@ -4,11 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/AxiosSecure/useAxiosSecure';
 
 const Registration = () => {
       const [imgUrl, setImgUrl] = useState(null)
       const { createUser, user, loading, updateUserProfile} = useAuth()
       const goto = useNavigate()
+      const axiosSecure = useAxiosSecure()
 
       const handleImg = (e) => {
             const file = e.target.files[0];
@@ -36,10 +38,8 @@ const Registration = () => {
             const email = e.target.email.value
             const password = e.target.password.value
             const photo = e.target.photo.files[0]
-
-            const RegisterFormData = {
-                  name, bankAccount, position, Salary, designation, email, photo
-            }
+           
+            
 
             const imgApiSecret = import.meta.env.VITE_IMGAPI
             const imgApi = `https://api.imgbb.com/1/upload?key=${imgApiSecret}`
@@ -53,6 +53,10 @@ const Registration = () => {
                               'content-type': 'multipart/form-data'
                         }
                   })
+                  const photoLink = res?.data?.data?.url
+                  const RegisterFormData = {
+                        name, bankAccount, position, Salary, designation, email, photoLink
+                  }
 
 
                   const hasUppercase = /[A-Z]/.test(password);
@@ -91,20 +95,25 @@ const Registration = () => {
                         try {
 
                               await createUser(email, password)
-                              .then(()=>{
+                              .then( async ()=>{
 
-                                    updateUserProfile(name, res?.data?.data?.url)
-                                    
+                                   await updateUserProfile(name, photoLink)
+
+                                    const FormDataRes = await axiosSecure.post('http://localhost:3000/users', RegisterFormData)
+                                    console.log(FormDataRes)
+                                    if(FormDataRes.data.insertedId){
+                                          Swal.fire({
+                                                icon: "success",
+                                                title: "Registration Success",
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            })
+                                            goto('/dashboard')
+        
+                                            window.location.reload()
+                                    }
                                    
-                                    Swal.fire({
-                                        icon: "success",
-                                        title: "Registration Success",
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    })
-                                    goto('/dashboard')
-
-                                    window.location.reload()
+                                     
                               }  
                               )
                       
