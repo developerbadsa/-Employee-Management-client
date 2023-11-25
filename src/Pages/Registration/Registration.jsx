@@ -1,17 +1,15 @@
-import React, { useContext, useState } from 'react';
+import { useState } from 'react';
 import SectionIntro from '../../Components/IntroSection/SectionIntro';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { userAuth } from '../../AuthProvider/AuthProvider';
 import useAuth from '../../Hooks/useAuth';
 import { updateProfile } from 'firebase/auth';
 import Swal from 'sweetalert2';
 
 const Registration = () => {
       const [imgUrl, setImgUrl] = useState(null)
-      const {createUser, user} = useAuth()
+      const { createUser, user } = useAuth()
       const goto = useNavigate()
-
 
       const handleImg = (e) => {
             const file = e.target.files[0];
@@ -40,45 +38,84 @@ const Registration = () => {
             const password = e.target.password.value
             const photo = e.target.photo.files[0]
 
-               const RegisterFormData = {
+            const RegisterFormData = {
                   name, bankAccount, position, Salary, designation, email, photo
-               }
+            }
 
             const imgApiSecret = import.meta.env.VITE_IMGAPI
             const imgApi = `https://api.imgbb.com/1/upload?key=${imgApiSecret}`
 
 
             try {
+
+                  // post image and get link to imagebb
                   const res = await axios.post(imgApi, { image: photo }, {
                         headers: {
                               'content-type': 'multipart/form-data'
                         }
                   })
 
-                  await createUser(email, password)
-                        .then(async () => {
+                  const hasUppercase = /[A-Z]/.test(password);
+                  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-                              if (user !== null) {
-                                    updateProfile(user, {
-                                      displayName: name,
-                                      photoURL: res.data.data.url,
-                                    }).then()
-                                  }
-                                  
-                              goto('/')
-
-
-                                  Swal.fire({
-                                    icon: "success",
-                                    title: "Registration Success",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                  })
+                  if (password.length < 6) {
+                        Swal.fire({
+                              icon: "error",
+                              title: "Oops...",
+                              text: "Password Lenth At least 6 characters",
                         })
+                  } else if (!hasUppercase) {
+                        Swal.fire({
+                              icon: "error",
+                              title: "Oops...",
+                              text: "Password  At least One Uppercase",
+                        })
+                  } else if (!hasSpecialChar) {
+                        Swal.fire({
+                              icon: "error",
+                              title: "Oops...",
+                              text: "Password  At  One Special Characters",
+                        })
+                  } else if (!position) {
+                        Swal.fire({
+                              icon: "error",
+                              title: "Oops...",
+                              text: "Please select your position",
+                        })
+                  }
+                  else {
+
+                        await createUser(email, password)
+                              .then(() => {
+
+                                    if (user !== null) {
+                                          updateProfile(user.auth.currentUser, {
+                                                displayName: name,
+                                                photoURL: res.data.data.url,
+                                          }).then(() => {
+                                                
+                                          }).catch(err => console.log(err))
+                                    }
+
+                                    goto('/dashboard')
+
+
+                                    Swal.fire({
+                                          icon: "success",
+                                          title: "Registration Success",
+                                          showConfirmButton: false,
+                                          timer: 1500
+                                    })
+                              })
+                  }
 
 
             } catch (err) {
-                  console.log('res err', err)
+                  Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Error While registration",
+                  })
             }
 
 
@@ -101,19 +138,20 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                                Full Name
+                                                Full Name <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
                                                 type="text"
                                                 name="name"
                                                 placeholder=" Full name"
+                                                required
                                           />
                                     </div>
                                     <div className="mb-6">
                                           <label className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""  >
-                                                Position
+                                                Position <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <div className="relative">
                                                 <select
@@ -140,13 +178,14 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                                Bank Account Number
+                                                Bank Account Number <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
                                                 type="number"
                                                 name="Bank"
                                                 placeholder="Enter Bank Account Number"
+                                                required
                                           />
                                     </div>
                                     <div className="mb-6">
@@ -154,13 +193,14 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                                salary
+                                                salary <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
                                                 type="number"
                                                 name="salary"
                                                 placeholder="Enter salary"
+                                                required
                                           />
                                     </div>
                                     <div className="mb-6">
@@ -168,13 +208,14 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                                designation
+                                                designation <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
                                                 type="text"
                                                 name="designation"
                                                 placeholder="Your Designation"
+                                                required
                                           />
                                     </div>
                                     <div className="mb-6">
@@ -182,13 +223,14 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                                Your Email
+                                                Your Email <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
                                                 type="email"
                                                 name="email"
                                                 placeholder="Your Designation"
+                                                required
                                           />
                                     </div>
                                     {/* Password field */}
@@ -197,13 +239,14 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                                Password
+                                                Password <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
-                                                type="password"
+                                                type="text"
                                                 name="password"
                                                 placeholder="password"
+                                                required
                                           />
                                     </div>
                                     <div className="mb-6 ">
@@ -211,7 +254,7 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                                Upload Your Photo
+                                                Upload Your Photo <span className='text-red-900 text-xl'>*</span>
                                           </label>
                                           <div className="py-2 shrink-0">
                                                 {imgUrl && <img
@@ -226,6 +269,7 @@ const Registration = () => {
                                                       onChange={handleImg}
                                                       type="file"
                                                       name='photo'
+                                                      required
                                                       className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold dark:file:bg-gray-600 dark:file:text-gray-200 dark:hover:file:bg-gray-700 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 "
                                                 />
                                           </label>

@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
             createUser, login, logout, user
       }
 
-      console.log(userInfo)
+
       return (
             <userAuth.Provider value={userInfo}>
                   {children}
