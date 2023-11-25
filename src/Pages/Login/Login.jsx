@@ -1,8 +1,13 @@
 import React from 'react';
 import SectionIntro from '../../Components/IntroSection/SectionIntro';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+
+      const goto = useNavigate()
+      const {login} = useAuth()
 
       const handleLogin =(e)=>{
             e.preventDefault()
@@ -11,9 +16,29 @@ const Login = () => {
 
          const LoginFormData = {
              email, password
-         } 
+         }
 
-            console.log(import.meta.env.VITE_IMGAPI)
+         login(email, password)
+         .then(res=>{
+            Swal.fire({
+                  icon: "success",
+                  title: "Login Success",
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                goto('/dashboard')
+
+  
+         })
+         .catch(err=>{
+            Swal.fire({
+                  icon: "warning",
+                  title: "Login problem",
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+          })
+
 
       }
 
