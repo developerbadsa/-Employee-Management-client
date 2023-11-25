@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SectionIntro from '../../Components/IntroSection/SectionIntro';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { userAuth } from '../../AuthProvider/AuthProvider';
+import useAuth from '../../Hooks/useAuth';
 
 const Registration = () => {
       const [imgUrl, setImgUrl] = useState(null)
+      const [createUser] = useAuth()
 
       const handleImg =(e)=>{
             const file = e.target.files[0];
@@ -30,6 +33,7 @@ const Registration = () => {
             const Salary = e.target.salary.value
             const designation = e.target.designation.value
             const email = e.target.email.value
+            const password = e.target.password.value
             const photo = e.target.photo.files[0]
 
          const RegisterFormData = {
@@ -39,16 +43,23 @@ const Registration = () => {
          const imgApiSecret = import.meta.env.VITE_IMGAPI
          const imgApi = `https://api.imgbb.com/1/upload?key=${imgApiSecret}`
 
-         const res = await axios.post(imgApi, {image:photo}, {
-            headers:{
-                  'content-type': 'multipart/form-data'
-            }
-         })
+      //    const res = await axios.post(imgApi, {image:photo}, {
+      //       headers:{
+      //             'content-type': 'multipart/form-data'
+      //       }
+      //    })
 
-            console.log(res.data.data.url)
+         createUser(email, password)
+         .then(res=>console.log(res))
+
+            // console.log(res.data.data.url)
+
+
+
+
+
 
       }
-
 
 
       return (
