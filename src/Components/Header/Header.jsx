@@ -10,6 +10,7 @@ import {
       Avatar,
       IconButton,
       Collapse,
+      Badge,
 } from "@material-tailwind/react";
 import {
       UserCircleIcon,
@@ -20,6 +21,9 @@ import {
 import SiteLogo from "./SiteLogo";
 import { NavLink } from "react-router-dom";
 import { RxDashboard, RxEnvelopeOpen } from "react-icons/rx";
+import {CheckIcon} from "@heroicons/react/24/outline";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 // profile menu component
 const profileMenuItems = [
@@ -38,21 +42,26 @@ function ProfileMenu() {
       const tter = false
 
       const closeMenu = () => setIsMenuOpen(false);
+      const { user, logout } = useAuth()
 
       return (
-            tter ? <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+            user ? <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
                   <MenuHandler>
+
                         <Button
                               variant="text"
                               color="blue-gray"
-                              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto border p-1"
                         >
+                              <div className="px-4">
+                              <span className="px-3">{user?.displayName}</span>
+                              </div>
                               <Avatar
                                     variant="circular"
                                     size="sm"
                                     alt="tania andrew"
                                     className="border border-gray-900 p-0.5"
-                                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                                    src={user.photoURL}
                               />
                               <ChevronDownIcon
                                     strokeWidth={2.5}
@@ -61,10 +70,20 @@ function ProfileMenu() {
                               />
                         </Button>
                   </MenuHandler>
+
                   <MenuList className="p-1">
+
                         {profileMenuItems.map(({ label, icon }, key) => {
                               const handleLogout = () => {
-                                    console.log('logging out')
+                                    logout()
+                                          .then(() => {
+                                                Swal.fire({
+                                                      icon: "warning",
+                                                      title: "Logged Out",
+                                                      showConfirmButton: false,
+                                                      timer: 1500
+                                                })
+                                          })
                               }
                               const isLastItem = key === profileMenuItems.length - 1;
                               return (
@@ -72,8 +91,8 @@ function ProfileMenu() {
                                           key={label}
                                           onClick={() => closeMenu, handleLogout}
                                           className={`flex items-center gap-2 rounded ${isLastItem
-                                                      ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                                                      : ""
+                                                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                                                : ""
                                                 }`}
                                     >
                                           {React.createElement(icon, {
@@ -94,13 +113,13 @@ function ProfileMenu() {
                         )}
                   </MenuList>
             </Menu> : <div className="inline-flex rounded-md shadow-sm" role="group">
-  <NavLink to={'/login'} type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-  Login
-  </NavLink>
-  <NavLink to={'/register'} type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-    Register
-  </NavLink>
-</div>  );
+                  <NavLink to={'/login'} type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                        Login
+                  </NavLink>
+                  <NavLink to={'/register'} type="button" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                        Register
+                  </NavLink>
+            </div>);
 }
 
 
@@ -111,13 +130,13 @@ function NavList() {
       return (
             <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:justify-center text-black ml-[100px] gap-5">
 
-                 { <NavLink
-                        to='/'
+                  {<NavLink
+                        to='/dashboard'
                         className={({ isActive, isPending }) =>
                               isPending ? "text-red-400" : isActive ? "text-blue-600" : ""
                         }
                   >
-                       <div className=" flex items-center gap-2"><RxDashboard></RxDashboard> Dashboard</div>
+                        <div className=" flex items-center gap-2"><RxDashboard></RxDashboard> Dashboard</div>
                   </NavLink>}
                   <NavLink
                         to='/contact'
@@ -146,6 +165,8 @@ export const Header = () => {
             );
       }, []);
 
+
+
       return (
             <Navbar className="mx-auto max-w-screen-xl p-2  lg:pl-6 shadow-none">
                   <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
@@ -172,7 +193,7 @@ export const Header = () => {
 
                         <ProfileMenu />
                   </div>
-                  <Collapse  open={isNavOpen} className="overflow-scroll">
+                  <Collapse open={isNavOpen} className="overflow-scroll">
                         <NavList />
                   </Collapse >
             </Navbar>

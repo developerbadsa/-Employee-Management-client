@@ -3,12 +3,11 @@ import SectionIntro from '../../Components/IntroSection/SectionIntro';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../../Hooks/useAuth';
-import { updateProfile } from 'firebase/auth';
 import Swal from 'sweetalert2';
 
 const Registration = () => {
       const [imgUrl, setImgUrl] = useState(null)
-      const { createUser, user } = useAuth()
+      const { createUser, user, loading, updateUserProfile} = useAuth()
       const goto = useNavigate()
 
       const handleImg = (e) => {
@@ -55,10 +54,14 @@ const Registration = () => {
                         }
                   })
 
+
                   const hasUppercase = /[A-Z]/.test(password);
                   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-                  if (password.length < 6) {
+                 if(loading){
+                  console.log('loading')
+                  return
+                 }else if (password.length < 6) {
                         Swal.fire({
                               icon: "error",
                               title: "Oops...",
@@ -85,28 +88,32 @@ const Registration = () => {
                   }
                   else {
 
-                        await createUser(email, password)
-                              .then(() => {
+                        try {
 
-                                    if (user !== null) {
-                                          updateProfile(user.auth.currentUser, {
-                                                displayName: name,
-                                                photoURL: res.data.data.url,
-                                          }).then(() => {
-                                                
-                                          }).catch(err => console.log(err))
-                                    }
+                              await createUser(email, password)
+                              .then(()=>{
 
+                                    updateUserProfile(name, res?.data?.data?.url)
+                                    
+                                   
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Registration Success",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
                                     goto('/dashboard')
 
-
-                                    Swal.fire({
-                                          icon: "success",
-                                          title: "Registration Success",
-                                          showConfirmButton: false,
-                                          timer: 1500
-                                    })
-                              })
+                                    window.location.reload()
+                              }  
+                              )
+                      
+                              
+                          } catch (error) {
+                                          console.log(error);
+                                      }
+                                      
+                         
                   }
 
 
