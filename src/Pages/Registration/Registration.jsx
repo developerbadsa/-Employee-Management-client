@@ -1,31 +1,35 @@
 import React, { useContext, useState } from 'react';
 import SectionIntro from '../../Components/IntroSection/SectionIntro';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { userAuth } from '../../AuthProvider/AuthProvider';
 import useAuth from '../../Hooks/useAuth';
+import { updateProfile } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 const Registration = () => {
       const [imgUrl, setImgUrl] = useState(null)
-      const [createUser] = useAuth()
+      const {createUser, user} = useAuth()
+      const goto = useNavigate()
 
-      const handleImg =(e)=>{
+
+      const handleImg = (e) => {
             const file = e.target.files[0];
-          
+
             if (file) {
                   const reader = new FileReader();
-            
+
                   reader.onloadend = () => {
-                    setImgUrl(reader.result);
+                        setImgUrl(reader.result);
                   };
-            
+
                   reader.readAsDataURL(file);
-                } else {
+            } else {
                   setImgUrl(null);
-                }
+            }
       }
-        
-      const handleRegister =async (e)=>{
+
+      const handleRegister = async (e) => {
             e.preventDefault()
             const name = e.target.name.value
             const bankAccount = e.target.Bank.value
@@ -36,23 +40,46 @@ const Registration = () => {
             const password = e.target.password.value
             const photo = e.target.photo.files[0]
 
-         const RegisterFormData = {
-            name, bankAccount, position, Salary, designation, email, photo
-         }
+               const RegisterFormData = {
+                  name, bankAccount, position, Salary, designation, email, photo
+               }
 
-         const imgApiSecret = import.meta.env.VITE_IMGAPI
-         const imgApi = `https://api.imgbb.com/1/upload?key=${imgApiSecret}`
+            const imgApiSecret = import.meta.env.VITE_IMGAPI
+            const imgApi = `https://api.imgbb.com/1/upload?key=${imgApiSecret}`
 
-      //    const res = await axios.post(imgApi, {image:photo}, {
-      //       headers:{
-      //             'content-type': 'multipart/form-data'
-      //       }
-      //    })
 
-         createUser(email, password)
-         .then(res=>console.log(res))
+            try {
+                  const res = await axios.post(imgApi, { image: photo }, {
+                        headers: {
+                              'content-type': 'multipart/form-data'
+                        }
+                  })
 
-            // console.log(res.data.data.url)
+                  await createUser(email, password)
+                        .then(async () => {
+
+                              if (user !== null) {
+                                    updateProfile(user, {
+                                      displayName: name,
+                                      photoURL: res.data.data.url,
+                                    }).then()
+                                  }
+                                  
+                              goto('/')
+
+
+                                  Swal.fire({
+                                    icon: "success",
+                                    title: "Registration Success",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                  })
+                        })
+
+
+            } catch (err) {
+                  console.log('res err', err)
+            }
 
 
 
@@ -113,7 +140,7 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                               Bank Account Number
+                                                Bank Account Number
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
@@ -127,7 +154,7 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                               salary
+                                                salary
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
@@ -141,7 +168,7 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                               designation
+                                                designation
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
@@ -155,7 +182,7 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                               Your Email
+                                                Your Email
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
@@ -170,7 +197,7 @@ const Registration = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                               Password
+                                                Password
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
