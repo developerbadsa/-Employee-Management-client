@@ -1,12 +1,14 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import Auth from '../Configs/FirebaseConfig/Firebase.config';
+import useAxiosPublic from '../Hooks/useAxiosPublic/useAxiosPublic';
 
 export const userAuth = createContext(null)
 
 const AuthProvider = ({ children }) => {
       const [loading, setLoading] = useState(true)
       const [user, setUser] = useState(null)
+      const axiosPublic = useAxiosPublic()
 
       console.log(loading, user)
 
@@ -28,6 +30,23 @@ const AuthProvider = ({ children }) => {
 
                   setLoading(false)
                   setUser(currentUser)
+                  if (currentUser) {
+                        // get token and store client
+                        const userInfo = { email: currentUser.email };
+                        console.log(userInfo)
+                        axiosPublic.post('/jwt', userInfo)
+                            .then(res => {
+                                if (res.data.token) {
+                                    localStorage.setItem('access-token', res.data.token);
+                                    setLoading(false);
+                                }
+                            })
+                    }
+                    else {
+                        // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
+                        localStorage.removeItem('access-token');
+                        setLoading(false);
+                    }
 
             })
 
@@ -45,7 +64,7 @@ const AuthProvider = ({ children }) => {
             return updateProfile(Auth.currentUser ,{
                   displayName: name, photoURL: photoUrl
             })
-            .then(console.log('sssssssssssssssss'))
+            .then(console.log(''))
       }
 
 
