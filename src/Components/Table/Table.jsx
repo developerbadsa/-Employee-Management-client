@@ -163,7 +163,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, removeVeri
                         className="font-normal"
                       >
                         {
-                           !isVerify ? <button onClick={() => { setVerify(_id)  }}><RxCross1></RxCross1></button> : <button ><RxCheck></RxCheck></button>
+                           !isVerify ? <button onClick={() => { setVerify(_id)  }} className="text-3xl text-red-600"><RxCross1></RxCross1></button> : <button className="text-3xl text-green-600"><RxCheck></RxCheck></button>
                         }
                       </Typography>
                       {/* <div className="w-max">
