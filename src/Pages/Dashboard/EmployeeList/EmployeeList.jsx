@@ -3,6 +3,7 @@ import SectionIntro from '../../../Components/IntroSection/SectionIntro';
 import useAxiosSecure from '../../../Hooks/AxiosSecure/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import TableUsable from './../../../Components/Table/Table'
+import Swal from 'sweetalert2';
 
 const EmployeeList = () => {
       const axiosSecure = useAxiosSecure()
@@ -52,8 +53,21 @@ console.log(employeeList.data)
 
           const setVerify=(id)=>{
 
-            axiosSecure.put('/employee-verify-update', id)
-            .then(res=>console.log(res))
+            axiosSecure.put(`/employee-verify-update${id}`)
+            .then(res=>{
+                  if(res?.data?.modifiedCount){
+                        Swal.fire({
+                              title: "Mark as user Verified",
+                              icon: "success"
+                            });
+                            refetch()
+                  }else if(res?.data?.modifiedCount===0){
+                        Swal.fire({
+                              title: "Already You have updated",
+                              icon: "question"
+                            });
+                  }
+            })
 
             console.log('set true', id)
           }

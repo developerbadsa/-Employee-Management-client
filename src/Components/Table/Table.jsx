@@ -108,7 +108,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, removeVeri
           </thead>
           <tbody>
             {TABLE_ROWS?.map(
-              ({ photoLink, name, email, job, bankAccount, isverified, Salary, detailsBtn, _id }, index) => {
+              ({ photoLink, name, email, job, bankAccount, isVerify, Salary, detailsBtn, _id }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -163,7 +163,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, removeVeri
                         className="font-normal"
                       >
                         {
-                           !visibleVerify ? <button onClick={() => { setVerify(_id)  }}><RxCross1></RxCross1></button> : <button ><RxCheck></RxCheck></button>
+                           !isVerify ? <button onClick={() => { setVerify(_id)  }}><RxCross1></RxCross1></button> : <button ><RxCheck></RxCheck></button>
                         }
                       </Typography>
                       {/* <div className="w-max">
