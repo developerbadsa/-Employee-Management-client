@@ -6,6 +6,7 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashboardLayout from "../Layout/DashboardLayout";
+import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
 
 export const router = createBrowserRouter([
       {
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
                   //HR Routes
                   {
                         path: '/dashboard/employee-list',
-                        element: 'employyee list'
+                        element: <EmployeeList></EmployeeList>
                   },
                   {
                         path: 'dashboard//details/:email',

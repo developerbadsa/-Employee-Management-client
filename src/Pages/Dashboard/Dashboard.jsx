@@ -8,7 +8,6 @@ import {
       UserCircleIcon,
       PowerIcon,
 } from "@heroicons/react/24/solid";
-import Table from '../../Components/Table/Table';
 
 const Dashboard = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,16 +22,6 @@ const Dashboard = () => {
                   icon: PowerIcon,
             },
       ];
-      const columns = [
-            { key: 'name', title: 'Name' },
-            { key: 'age', title: 'Age' },
-            { key: 'city', title: 'City' },
-          ];
-        
-          const data = [
-            { id: 1, name: 'John Doe', age: 25, city: <button className='bg-red-500'>Name</button> },
-            { id: 2, name: 'Jane Doe', age: 30, city: 'San Francisco' },
-          ];
 
       return (
             <div>
@@ -47,14 +36,17 @@ const Dashboard = () => {
                               <div className="pb-6 mt-4 overflow-x-hidden overflow-y-auto">
                                     <p className="px-6 py-4 text-2xl font-bold ">Dashboard</p>
                                     <ul className="mb-8 text-sm">
-                                          <li className="flex items-center group  dark:hover:bg-gray-800">
+                                          {/* HR Only */}
+                                          {
+                                                <>
+                                                <li className="flex items-center group  dark:hover:bg-gray-800">
                                                 <NavLink
                                                       to='/dashboard/employee-list'
                                                       className={({ isActive, isPending }) =>
                                                             isPending ? "text-red-400" : isActive ? "text-blue-500 w-full bg-gray-600 px-6 py-4" : " px-6 py-4 "
                                                       }
                                                 >
-                                                      <div className="flex items-center gap-2">Contact</div>
+                                                      <div className="flex items-center gap-2">Employee List</div>
                                                 </NavLink>
                                           </li>
                                           <li className="flex items-center w-full border dark:hover:bg-gray-800">
@@ -67,6 +59,20 @@ const Dashboard = () => {
                                                       <div className="flex items-center gap-2">Contact</div>
                                                 </NavLink>
                                           </li>
+                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
+                                                <NavLink
+                                                      to='/dashboard/progress
+                                                      '
+                                                      className={({ isActive, isPending }) =>
+                                                            isPending ? "text-red-400" : isActive ? "text-blue-500 w-full bg-gray-600 px-6 py-4" : " px-6 py-4 "
+                                                      }
+                                                >
+                                                      <div className="flex items-center gap-2">Contact</div>
+                                                </NavLink>
+                                          </li>
+                                                
+                                                </>
+                                          }
                                     </ul>
                               </div>
                         </nav>
@@ -283,8 +289,8 @@ const Dashboard = () => {
                                           <div className="overflow-x-auto rounded shadow dark:bg-gray-900 bg-gray-50">
 
 
-                                                {/* <Outlet></Outlet> */}
-                                                <Table columns={columns} data={data} />
+                                                <Outlet></Outlet>
+                                                
                                                 {/* <div className="px-6 py-5 text-right">
                                                                   <a
                                                                         className="inline-flex items-center text-xs font-medium text-blue-500 dark:hover:text-blue-400 dark:text-blue-300 hover:text-blue-700"
@@ -312,8 +318,6 @@ const Dashboard = () => {
                               {/* Add your other sections here */}
                         </div>
                   </div>
-
-                  <Outlet />
             </div>
       );
 };
