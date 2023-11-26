@@ -16,8 +16,10 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import { useState } from "react";
 import { RxCheck, RxCross1 } from "react-icons/rx";
- 
+
+
 // const TABS = [
 //   {
 //     label: "All",
@@ -32,17 +34,19 @@ import { RxCheck, RxCross1 } from "react-icons/rx";
 //     value: "unmonitored",
 //   },
 // ];
- 
 
- 
-export default function TableUsable({tableHead, tableRow}) {
+
+
+export default function TableUsable({ tableHead, tableRow, setVerify, removeVerify }) {
 
   const TABLE_HEAD = tableHead;
- 
-const TABLE_ROWS = tableRow;
-TABLE_ROWS[0].detailsBtn = true;
 
-console.log(TABLE_ROWS)
+  const TABLE_ROWS = tableRow;
+  TABLE_ROWS[0].detailsBtn = true;
+
+  const [visibleVerify, setVisibleVerify] = useState()
+
+  console.log(TABLE_ROWS)
   return (
     <Card className=" w-full">
       {/* <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -104,12 +108,12 @@ console.log(TABLE_ROWS)
           </thead>
           <tbody>
             {TABLE_ROWS?.map(
-              ({ photoLink, name, email, job, bankAccount, isverified, Salary, detailsBtn}, index) => {
+              ({ photoLink, name, email, job, bankAccount, isverified, Salary, detailsBtn, _id }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
- 
+
                 return (
                   <tr key={name}>
                     <td className={classes}>
@@ -148,19 +152,28 @@ console.log(TABLE_ROWS)
                           className="font-normal opacity-70"
                         >
                           {bankAccount
-}
+                          }
                         </Typography>
                       </div>
                     </td>
                     <td className={classes}>
-                      <div className="w-max">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {
+                           !visibleVerify ? <button onClick={() => { setVerify(_id)  }}><RxCross1></RxCross1></button> : <button ><RxCheck></RxCheck></button>
+                        }
+                      </Typography>
+                      {/* <div className="w-max">
                         <Chip
                           variant="ghost"
                           size="sm"
                           value={isverified ? <RxCross1></RxCross1> : <RxCheck></RxCheck>}
                           color={isverified ? "green" : "blue-gray"}
                         />
-                      </div>
+                      </div> */}
                     </td>
                     <td className={classes}>
                       <Typography
@@ -172,7 +185,7 @@ console.log(TABLE_ROWS)
                       </Typography>
                     </td>
                     <td className={classes}>
-                    <Typography
+                      <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal"

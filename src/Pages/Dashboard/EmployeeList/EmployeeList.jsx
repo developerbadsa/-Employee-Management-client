@@ -22,9 +22,12 @@ const EmployeeList = () => {
       if(isPending){
             return 'loading'
       }
+      if(employeeList.data.length===0){
+            return <div className='text-2xl py-8 px-4 text-deep-orange-700'>No data to display</div>
+      }
 
 
-      const {_id, name, bankAccount, position, Salary, designation, email, photoLink, isVerify}= employeeList?.data[0]
+      // const {_id, name, bankAccount, position, Salary, designation, email, photoLink, isVerify}= employeeList?.data[0]
 
 
 console.log(employeeList.data)
@@ -47,12 +50,19 @@ console.log(employeeList.data)
             }
           ]
 
+          const setVerify=(id)=>{
+
+            axiosSecure.put('/employee-verify-update', id)
+            .then(res=>console.log(res))
+
+            console.log('set true', id)
+          }
 
 
       return (
             <div>
                   <SectionIntro title={'All_Employee List'}></SectionIntro>
-                  <TableUsable tableHead={tableHead} tableRow={employeeList.data}></TableUsable>
+                  <TableUsable tableHead={tableHead} tableRow={employeeList.data} setVerify={setVerify} refetch={refetch}></TableUsable>
                   
             </div>
       );

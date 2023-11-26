@@ -11,7 +11,7 @@ import {
 
 const Dashboard = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
-      const { user } = useAuth()
+      const { user, logout } = useAuth()
       const profileMenuItems = [
             {
                   label: "My Profile",
@@ -108,6 +108,9 @@ const Dashboard = () => {
                                                                   {profileMenuItems.map(({ label, icon }, key) => {
                                                                         const handleLogout = () => {
                                                                               // Handle logout logic
+                                                                              logout()
+                                                                              .then('logged out')
+                                                                              
                                                                         };
                                                                         const isLastItem = key === profileMenuItems.length - 1;
                                                                         return (
