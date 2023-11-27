@@ -10,8 +10,8 @@ const UserDetails = (userId) => {
 
       const axiosSecure = useAxiosSecure()
 
-      const {id} =  useParams()
-      const { data: employeeDetails ,isPending,refetch } = useQuery({
+      const {id} = useParams() || userId
+      const { data: employeeDetails ,isPending, refetch } = useQuery({
             queryKey: ['employeeDetails'],
             queryFn: async () => {
                 const data =await axiosSecure.get(`/employee-list/${id}`)
@@ -19,12 +19,12 @@ const UserDetails = (userId) => {
             }
         })
 
-        const { data: chartData, isPending: paymentLoaing } = useQuery({
-            queryKey: [`payments`],
+        const { data: chartData, isPending: paymentLoading } = useQuery({
+            queryKey: [`payments`, employeeDetails?.email],
             queryFn: async () => {
-                if (!isPending && employeeDetails) {
+                if (!isPending && employeeDetails && employeeDetails.email) {
                     try {
-                        const data = await axiosSecure.get(`/payment-list/${employeeDetails?.email}`);
+                        const data = await axiosSecure.get(`/payment-list/${employeeDetails.email}`);
                         console.log("Payment data:", data?.data);
                         return data?.data || [];
                     } catch (error) {
@@ -37,6 +37,7 @@ const UserDetails = (userId) => {
                 }
             },
         });
+        
         
         
         
@@ -56,7 +57,7 @@ const UserDetails = (userId) => {
                   <div className="relative mb-20 h-96">
                         <img
                               className="object-cover w-full h-full"
-                              src="https://i.postimg.cc/Y23w2gc1/pexels-ricardo-esquivel-1586298.jpg"
+                              src="https://png.pngtree.com/thumb_back/fh260/back_our/20190617/ourmid/pngtree-corporate-culture-employee-style-poster-background-material-image_125216.jpg"
                               alt=""
                         />
                         <img
@@ -79,7 +80,7 @@ const UserDetails = (userId) => {
                         </div>
                   
                   </div>
-                  { !paymentLoaing && <BarChart data={chartData}></BarChart>}
+                  { !paymentLoading && <BarChart data={chartData}></BarChart>}
 
             </section>
 

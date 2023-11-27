@@ -44,7 +44,7 @@ const EmployeeList = () => {
       if (isPending) {
             return 'loading'
       }
-      if (employeeList.data.length === 0) {
+      if (employeeList?.data?.length == 0) {
             return <div className='text-2xl py-8 px-4 text-deep-orange-700'>No data to display</div>
       }
 
