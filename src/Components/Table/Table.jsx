@@ -37,16 +37,13 @@ import { RxCheck, RxCross1 } from "react-icons/rx";
 
 
 
-export default function TableUsable({ tableHead, tableRow, setVerify, removeVerify }) {
+export default function TableUsable({ tableHead, tableRow, setVerify, handlePay }) {
 
   const TABLE_HEAD = tableHead;
 
   const TABLE_ROWS = tableRow;
   TABLE_ROWS[0].detailsBtn = true;
 
-  const [visibleVerify, setVisibleVerify] = useState()
-
-  console.log(TABLE_ROWS)
   return (
     <Card className=" w-full">
       {/* <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -144,14 +141,14 @@ export default function TableUsable({ tableHead, tableRow, setVerify, removeVeri
                           color="blue-gray"
                           className="font-normal"
                         >
-                          <button className="bg-red-400 p-1 text rounded-lg text-white">Pay</button>
+                          <button className="bg-red-400 p-1 text rounded-lg text-white" onClick={()=>handlePay(email)}>Pay</button>
                         </Typography>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {bankAccount
+                           {bankAccount && <>Bank:{bankAccount}</>
                           }
                         </Typography>
                       </div>
@@ -163,7 +160,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, removeVeri
                         className="font-normal"
                       >
                         {
-                           !isVerify ? <button onClick={() => { setVerify(_id)  }} className="text-3xl text-red-600"><RxCross1></RxCross1></button> : <button className="text-3xl text-green-600"><RxCheck></RxCheck></button>
+                          !isVerify ? <button onClick={() => { setVerify(_id) }} className="text-3xl text-red-600"><RxCross1></RxCross1></button> : <button className="text-3xl text-green-600"><RxCheck></RxCheck></button>
                         }
                       </Typography>
                       {/* <div className="w-max">

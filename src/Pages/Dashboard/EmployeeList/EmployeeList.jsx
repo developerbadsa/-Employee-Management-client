@@ -69,14 +69,16 @@ console.log(employeeList.data)
                   }
             })
 
-            console.log('set true', id)
+          }
+          const handlePay=(email)=>{
+            console.log('paying', email)
           }
 
 
       return (
             <div>
                   <SectionIntro title={'All_Employee List'}></SectionIntro>
-                  <TableUsable tableHead={tableHead} tableRow={employeeList.data} setVerify={setVerify} refetch={refetch}></TableUsable>
+                  <TableUsable tableHead={tableHead} tableRow={employeeList.data} setVerify={setVerify} refetch={refetch} handlePay={handlePay}></TableUsable>
                   
             </div>
       );
