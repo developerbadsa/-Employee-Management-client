@@ -113,7 +113,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, handlePay,
                   : "p-4 border-b border-blue-gray-50";
 
                 return (
-                  <tr key={name}>
+                  <tr key={email}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Avatar src={photoLink} alt={name} size="sm" />
@@ -142,7 +142,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, handlePay,
                           color="blue-gray"
                           className="font-normal"
                         >
-                          <button className="bg-red-400 p-1 text rounded-lg text-white" onClick={()=>handlePay({email,Salary, _id, name, bankAccount})}>Pay</button>
+                         {isVerify? <button className="bg-red-400 p-1 text rounded-lg text-white" onClick={()=>handlePay({email,Salary, _id, name, bankAccount})}>Pay</button>:<button className="bg-gray-400 p-1 text rounded-lg disable" disabled>Pay</button>}
                         </Typography>
                         <Typography
                           variant="small"
