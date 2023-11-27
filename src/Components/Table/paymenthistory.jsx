@@ -31,7 +31,7 @@ export default function TableUsable({ tableHead, tableRow}) {
               </thead>
               <tbody>
                 {TABLE_ROWS?.map(
-                  ({ month, amount, transactionId, _id }, index) => {
+                  ({ month, paidAmount, tnxid }, index) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast
                       ? "p-4"
@@ -54,7 +54,7 @@ export default function TableUsable({ tableHead, tableRow}) {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {amount}
+                            {paidAmount}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -63,7 +63,7 @@ export default function TableUsable({ tableHead, tableRow}) {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {transactionId}
+                            {tnxid}
                           </Typography>
                         </td>
                       </tr>
