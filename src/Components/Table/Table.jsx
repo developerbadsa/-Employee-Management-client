@@ -141,7 +141,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, handlePay 
                           color="blue-gray"
                           className="font-normal"
                         >
-                          <button className="bg-red-400 p-1 text rounded-lg text-white" onClick={()=>handlePay(email)}>Pay</button>
+                          <button className="bg-red-400 p-1 text rounded-lg text-white" onClick={()=>handlePay({email,Salary, _id, name, bankAccount})}>Pay</button>
                         </Typography>
                         <Typography
                           variant="small"
