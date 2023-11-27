@@ -8,6 +8,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashboardLayout from "../Layout/DashboardLayout";
 import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
 import UserDetails from "../Pages/UserDetails/UserDetails";
+import Progress from "../Pages/Dashboard/Progress/progress";
 
 export const router = createBrowserRouter([
       {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
                   {
                         path: '/dashboard/employee-list',
                         element: <EmployeeList></EmployeeList>
+                  },
+                  {
+                        path: '/dashboard/progress',
+                        element: <Progress></Progress>
                   },
                   {
                         path: '/dashboard/details/:id',
