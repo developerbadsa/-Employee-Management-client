@@ -144,7 +144,7 @@ const Dashboard = () => {
                                     </nav>
                               </section>
 
-                              <section className="py-8 pl-24  hidden lg:block">
+                              {/* <section className="py-8 pl-24  hidden lg:block">
                                     <div className="container px-4 mx-auto">
                                           <div className="flex flex-wrap -m-4">
                                                 <div className="w-full p-4 lg:w-1/3">
@@ -286,7 +286,7 @@ const Dashboard = () => {
                                                 </div>
                                           </div>
                                     </div>
-                              </section>
+                              </section> */}
                               <section className="py-3 pl-24">
                                     <div className="container px-4 mx-auto">
                                           <div className="overflow-x-auto rounded shadow dark:bg-gray-900 bg-gray-50">

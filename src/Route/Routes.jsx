@@ -7,6 +7,7 @@ import Registration from "../Pages/Registration/Registration";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashboardLayout from "../Layout/DashboardLayout";
 import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
+import UserDetails from "../Pages/UserDetails/UserDetails";
 
 export const router = createBrowserRouter([
       {
@@ -58,7 +59,8 @@ export const router = createBrowserRouter([
                         element: <EmployeeList></EmployeeList>
                   },
                   {
-                        path: 'dashboard//details/:email',
+                        path: '/dashboard/details/:id',
+                        element: <UserDetails></UserDetails>
                   },
                   
 

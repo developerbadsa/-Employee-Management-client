@@ -124,11 +124,15 @@ const EmployeeList = () => {
 
       };
 
+      const handleDetails = (id)=>{
+            console.log('details', id)
+      }
+
 
       return (
             <div>
                   <SectionIntro title={'All_Employee List'}></SectionIntro>
-                  <TableUsable tableHead={tableHead} tableRow={employeeList.data} setVerify={setVerify} refetch={refetch} handlePay={handlePay}></TableUsable>
+                  <TableUsable tableHead={tableHead} tableRow={employeeList.data} setVerify={setVerify} refetch={refetch} handlePay={handlePay} handleDetails={handleDetails}></TableUsable>
 
 
                   <ReactModal

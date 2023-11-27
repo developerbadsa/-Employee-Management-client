@@ -18,6 +18,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { RxCheck, RxCross1 } from "react-icons/rx";
+import { Link } from "react-router-dom";
 
 
 // const TABS = [
@@ -37,7 +38,7 @@ import { RxCheck, RxCross1 } from "react-icons/rx";
 
 
 
-export default function TableUsable({ tableHead, tableRow, setVerify, handlePay }) {
+export default function TableUsable({ tableHead, tableRow, setVerify, handlePay, handleDetails }) {
 
   const TABLE_HEAD = tableHead;
 
@@ -187,7 +188,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, handlePay 
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {detailsBtn && <button>Details</button>}
+                        {bankAccount && <Link to={`/dashboard/details/${_id}`}>Details</Link>}
                       </Typography>
                     </td>
                   </tr>
