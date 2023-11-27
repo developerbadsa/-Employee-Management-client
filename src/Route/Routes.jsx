@@ -6,9 +6,10 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DashboardLayout from "../Layout/DashboardLayout";
-import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
+import EmployeeList from "../Pages/Dashboard/HR/EmployeeList/EmployeeList";
 import UserDetails from "../Pages/UserDetails/UserDetails";
-import Progress from "../Pages/Dashboard/Progress/progress";
+import Progress from "../Pages/Dashboard/HR/Progress/progress";
+import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
       {
@@ -46,7 +47,7 @@ export const router = createBrowserRouter([
                   //Employye Routes
                   {
                         path: '/dashboard/payment-history',
-                        element: 'home'
+                        element: <PaymentHistory></PaymentHistory>
                   },
                   {
                         path: '/dashboard/work-sheet',

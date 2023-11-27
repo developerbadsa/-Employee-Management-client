@@ -43,7 +43,6 @@ export default function TableUsable({ tableHead, tableRow, setVerify, handlePay,
   const TABLE_HEAD = tableHead;
 
   const TABLE_ROWS = tableRow;
-  TABLE_ROWS[0].detailsBtn = true;
 
   return (
     <Card className=" w-full">
@@ -116,7 +115,7 @@ export default function TableUsable({ tableHead, tableRow, setVerify, handlePay,
                   <tr key={email}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
-                        <Avatar src={photoLink} alt={name} size="sm" />
+                        {photoLink && <Avatar src={photoLink} alt={name} size="sm" />}
                         <div className="flex flex-col">
                           <Typography
                             variant="small"

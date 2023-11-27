@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import SectionIntro from '../../../Components/IntroSection/SectionIntro';
-import useAxiosSecure from '../../../Hooks/AxiosSecure/useAxiosSecure';
+import SectionIntro from '../../../../Components/IntroSection/SectionIntro';
+import useAxiosSecure from '../../../../Hooks/AxiosSecure/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import TableUsable from './../../../Components/Table/Table'
+import TableUsable from '../../../../Components/Table/Table'
 import Swal from 'sweetalert2';
 import ReactModal from 'react-modal';
 import { Button } from '@material-tailwind/react';
@@ -48,7 +48,7 @@ const EmployeeList = () => {
             return <div className='text-2xl py-8 px-4 text-deep-orange-700'>No data to display</div>
       }
 
-
+console.log(employeeList)
       // const {_id, name, bankAccount, position, Salary, designation, email, photoLink, isVerify}= employeeList?.data[0]
 
       const tableHead = ["Name", "Payment", "Verified", "Salary", "Details", ""]

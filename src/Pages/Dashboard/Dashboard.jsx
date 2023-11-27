@@ -9,13 +9,15 @@ import {
       PowerIcon,
 } from "@heroicons/react/24/solid";
 import useHR from '../../Hooks/useHR/useHR';
-import { space } from 'postcss/lib/list';
+import useEmployeeCheck from '../../Hooks/useEmployee/useEmployee';
+
 
 
 const Dashboard = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
       const { user, logout } = useAuth()
-      const {isHR} = useHR()
+      const { isHR } = useHR()
+      const {isEmployee} = useEmployeeCheck()
       const profileMenuItems = [
             {
                   label: "My Profile",
@@ -38,32 +40,32 @@ const Dashboard = () => {
                                     </Link>
                               </div>
                               <div className="pb-6 mt-4 overflow-x-hidden overflow-y-auto">
-                                    <p className="px-6 py-4 text-2xl font-bold ">{isHR &&  <span>HR </span>} Dashboard</p>
+                                    <p className="px-6 py-4 text-2xl font-bold ">{isHR && <span>HR </span>}{isEmployee&&<span>Employee </span>} Dashboard</p>
                                     <ul className="mb-8 text-sm">
                                           {/* HR Only */}
                                           {
-                                            isHR &&    <>
-                                                <li className="flex items-center group  dark:hover:bg-gray-800">
-                                                <NavLink
-                                                      to='/dashboard/employee-list'
-                                                      className={({ isActive, isPending }) =>
-                                                            isPending ? "text-red-400" : isActive ? "text-blue-500 w-full bg-gray-600 px-6 py-4" : " px-6 py-4 "
-                                                      }
-                                                >
-                                                      <div className="flex items-center gap-2">Employee List</div>
-                                                </NavLink>
-                                          </li>
-                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
-                                                <NavLink
-                                                      to='/dashboard/progress'
-                                                      className={({ isActive, isPending }) =>
-                                                            isPending ? "text-red-400" : isActive ? "text-blue-500 w-full bg-gray-600 px-6 py-4" : " px-6 py-4 "
-                                                      }
-                                                >
-                                                      <div className="flex items-center gap-2">Progress</div>
-                                                </NavLink>
-                                          </li>
-                                                
+                                                isHR && <>
+                                                      <li className="flex items-center group  dark:hover:bg-gray-800">
+                                                            <NavLink
+                                                                  to='/dashboard/employee-list'
+                                                                  className={({ isActive, isPending }) =>
+                                                                        isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                                  }
+                                                            >
+                                                                  <div className="flex items-center gap-2">Employee List</div>
+                                                            </NavLink>
+                                                      </li>
+                                                      <li className="flex items-center w-full border dark:hover:bg-gray-800">
+                                                            <NavLink
+                                                                  to='/dashboard/progress'
+                                                                  className={({ isActive, isPending }) =>
+                                                                        isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                                  }
+                                                            >
+                                                                  <div className="flex items-center gap-2">Progress</div>
+                                                            </NavLink>
+                                                      </li>
+
                                                 </>
                                           }
                                           {/* Admin Only */}
@@ -103,6 +105,33 @@ const Dashboard = () => {
                                                 
                                                 </>
                                           } */}
+
+                                          {
+                                            isEmployee &&    <>
+                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
+                                                <NavLink
+                                                      to='/dashboard/payment-history'
+                                                      className={({ isActive, isPending }) =>
+                                                            isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                      }
+                                                >
+                                                      <div className="flex items-center gap-2">Payment History</div>
+                                                </NavLink>
+                                          </li>
+                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
+                                                <NavLink
+                                                      to='/dashboard/work-sheet'
+                                                      className={({ isActive, isPending }) =>
+                                                            isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                      }
+                                                >
+                                                      <div className="flex items-center gap-2">Work Sheet</div>
+                                                </NavLink>
+                                          </li>
+                                                
+                                                
+                                                </>
+                                          }
                                     </ul>
                               </div>
                         </nav>
@@ -139,8 +168,8 @@ const Dashboard = () => {
                                                                         const handleLogout = () => {
                                                                               // Handle logout logic
                                                                               logout()
-                                                                              .then('logged out')
-                                                                              
+                                                                                    .then('logged out')
+
                                                                         };
                                                                         const isLastItem = key === profileMenuItems.length - 1;
                                                                         return (
@@ -323,7 +352,7 @@ const Dashboard = () => {
 
 
                                                 <Outlet></Outlet>
-                                                
+
                                                 {/* <div className="px-6 py-5 text-right">
                                                                   <a
                                                                         className="inline-flex items-center text-xs font-medium text-blue-500 dark:hover:text-blue-400 dark:text-blue-300 hover:text-blue-700"
