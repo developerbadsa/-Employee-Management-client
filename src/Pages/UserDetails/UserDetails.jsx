@@ -2,12 +2,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosSecure from '../../Hooks/AxiosSecure/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import BarChart from '../../Components/BarChart/BarChart';
+
+
 
 const UserDetails = (userId) => {
 
       const axiosSecure = useAxiosSecure()
 
-      const {id} = useParams() || userId
+      const {id} =  useParams()
       const { data: employeeDetails ,isPending,refetch } = useQuery({
             queryKey: ['employeeDetails'],
             queryFn: async () => {
@@ -16,7 +19,38 @@ const UserDetails = (userId) => {
             }
         })
 
-      console.log(employeeDetails)
+        const { data: chartData, isPending: paymentLoaing } = useQuery({
+            queryKey: [`payments`],
+            queryFn: async () => {
+                if (!isPending && employeeDetails) {
+                    try {
+                        const data = await axiosSecure.get(`/payment-list/${employeeDetails?.email}`);
+                        console.log("Payment data:", data?.data);
+                        return data?.data || [];
+                    } catch (error) {
+                        console.error("Error fetching payment data:", error);
+                        return [];
+                    }
+                } else {
+                    console.log("Returning default value...");
+                    return [];
+                }
+            },
+        });
+        
+        
+        
+
+      // const chartData = [
+      //       { month: 'January', year: 2022, salary: 5000 },
+      //       { month: 'February', year: 2022, Salary: 5500 },
+      //       { month: 'March', year: 2022, Salary: 9000 },
+      //     ];
+
+      // console.log(paymentLoaing ,chartData)
+
+
+
       return (
             <section className="pb-24 ">
                   <div className="relative mb-20 h-96">
@@ -43,7 +77,10 @@ const UserDetails = (userId) => {
                                     <p className="text-gray-700 dark:text-gray-400">Email: {employeeDetails?.email}</p>
                               </div>
                         </div>
+                  
                   </div>
+                  { !paymentLoaing && <BarChart data={chartData}></BarChart>}
+
             </section>
 
       );
