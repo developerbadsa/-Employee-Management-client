@@ -1,11 +1,9 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const SalaryChart = ({ data }) => {
-
-      console.log(data)
   return (
-    <BarChart
+      <BarChart
       width={600}
       height={400}
       data={data}
@@ -16,7 +14,7 @@ const SalaryChart = ({ data }) => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="Salary" fill="#8884d8" />
+      <Bar dataKey="paidAmount" fill="#8884d8" />
     </BarChart>
   );
 };

@@ -40,12 +40,12 @@ const UserDetails = (userId) => {
         
         
         
-        
+      //   console.log(chartData)
 
       // const chartData = [
-      //       { month: 'January', year: 2022, salary: 5000 },
-      //       { month: 'February', year: 2022, Salary: 5500 },
-      //       { month: 'March', year: 2022, Salary: 9000 },
+      //       { month: 'January', year: 2022, paidAmount: 5000 },
+      //       { month: 'February', year: 2022, paidAmount: 5500 },
+      //       { month: 'March', year: 2022, paidAmount: 9000 },
       //     ];
 
       // console.log(paymentLoaing ,chartData)
