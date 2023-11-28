@@ -98,7 +98,7 @@ export default function AdminTable({ tableHead, tableRow, handleMakeHR, handleUs
                                                                         color="blue-gray"
 
                                                                   >
-                                                                        <Button title="Delete User"  size="sm" variant="outlined" className="flex items-center" onClick={() => handleUserFire(_id)}> <RxTrash  className="font-normal  text-red-600 text-xl"></RxTrash ></Button>
+                                                                        <Button title="Delete User"  size="sm" variant="outlined" className="flex items-center" onClick={() => handleUserFire(_id, name)}> <RxTrash  className="font-normal  text-red-600 text-xl"></RxTrash ></Button>
                                                                   </Typography>
                                                             </td>
                                                       </tr>
