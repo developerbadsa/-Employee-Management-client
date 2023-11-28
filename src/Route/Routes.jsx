@@ -5,11 +5,11 @@ import Contact from "../Pages/Contact/Contact";
 import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import DashboardLayout from "../Layout/DashboardLayout";
 import EmployeeList from "../Pages/Dashboard/HR/EmployeeList/EmployeeList";
 import UserDetails from "../Pages/UserDetails/UserDetails";
 import Progress from "../Pages/Dashboard/HR/Progress/progress";
 import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory/PaymentHistory";
+import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
 
 export const router = createBrowserRouter([
       {
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
                   },
                   {
                         path: '/dashboard/work-sheet',
-                        element: 'emplyee'
+                        element: <WorkSheet></WorkSheet>
                   },
 
 
