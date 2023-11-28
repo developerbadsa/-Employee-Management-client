@@ -1,18 +1,27 @@
 import React from 'react';
-import useEmployee from '../../../Hooks/useEmployee';
-import TableUsable from '../../../Components/Table/Table';
 import AdminTable from '../../../Components/Table/AdminTable';
 import useAxiosSecure from '../../../Hooks/AxiosSecure/useAxiosSecure';
+import { useQuery } from 'react-query';
 
 const AllEmployeeList = () => {
 
-const {employeeList, isPending, refetch} = useEmployee()
+// const {employeeList, isPending, refetch} = useEmployee(true)
 const axiosSecure = useAxiosSecure()
 
 
 
 
+const { data: employeeList, isPending, refetch } = useQuery({
+      queryKey: ['employeeListverified'],
+      queryFn: async () => {
+            try {
+                  return await axiosSecure.get('/employee-list/verified')
 
+            } catch (err) {
+                  console.log(err)
+            }
+      }
+})
 
 
 const tableHead = ["Name", "Designation", "Make HR", "Fire"]
