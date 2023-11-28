@@ -39,7 +39,6 @@ const profileMenuItems = [
 
 function ProfileMenu() {
       const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-      const tter = false
 
       const closeMenu = () => setIsMenuOpen(false);
       const { user, logout } = useAuth()
@@ -127,10 +126,13 @@ function ProfileMenu() {
 
 
 function NavList() {
-      return (
-            <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:justify-center text-black ml-[100px] gap-5">
 
-                  {<NavLink
+
+      const {user} = useAuth()
+      return (
+            <ul className="mt-2 mb-4 flex flex-col  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:justify-center text-black ml-[100px] gap-5">
+
+                  {user && <NavLink
                         to='/dashboard'
                         className={({ isActive, isPending }) =>
                               isPending ? "text-red-400" : isActive ? "text-blue-600" : ""

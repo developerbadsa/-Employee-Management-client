@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
 import TableUsable from "../../../../Components/Table/WorkSheettable";
 import useAxiosSecure from "../../../../Hooks/AxiosSecure/useAxiosSecure";
+import { Spinner } from "@material-tailwind/react";
+import LoadingSpinner from "../../../../Components/LoadingSpinner/LoadingSpinner";
 
 
 const Progress = () => {
@@ -27,7 +29,7 @@ const Progress = () => {
             }
       ];
 if(isLoading){
-      return "loading"
+      return <LoadingSpinner></LoadingSpinner>
 }
 console.log(employeeData)
 

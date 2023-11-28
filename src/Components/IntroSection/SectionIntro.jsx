@@ -14,13 +14,13 @@ const titleArr = title.split(" ")
                                                { titleArr[0]} <span className="text-blue-500">  {titleArr[1]}
                                                 </span>{" "}
                                           </h1>
-                                          <div className="flex w-24 mt-1 mb-10 overflow-hidden rounded">
+                                          <div className="flex w-24 mt-1 overflow-hidden rounded">
                                                 <div className="flex-1 h-2 bg-blue-200"></div>
                                                 <div className="flex-1 h-2 bg-blue-400"></div>
                                                 <div className="flex-1 h-2 bg-blue-600"></div>
                                           </div>
                                     </div>
-                                    <p className="mb-16 text-base text-center text-gray-500">{description}</p>
+                                    <p className="my-4 text-base text-center text-gray-500">{description}</p>
                               </div>
                         </div>
       );

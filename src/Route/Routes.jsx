@@ -11,7 +11,10 @@ import Progress from "../Pages/Dashboard/HR/Progress/progress";
 import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory/PaymentHistory";
 import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
 import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
-import LoggedInPrivate from "./LoggedInPrivate/LoggedInPrivate";
+import ErrorPage from "../Pages/ErrorPage";
+import LoggedOutPrivate from "./PrivateRoute/LoggedInPrivate/LoggedOutPrivate";
+import LoggedInPrivate from "./PrivateRoute/LoggedInPrivate/LoggedInPrivate";
+import AdminPrivate from "./PrivateRoute/AdminPrivate/AdminPrivate";
 
 export const router = createBrowserRouter([
       {
@@ -30,7 +33,7 @@ export const router = createBrowserRouter([
                   },
                   {
                         path: '/login',
-                        element: <Login></Login>
+                        element:<LoggedOutPrivate> <Login></Login> </LoggedOutPrivate>
 
                   },
                   {
@@ -39,11 +42,12 @@ export const router = createBrowserRouter([
 
                   }
             ],
-            errorElement: <div>error</div>
+            errorElement:<ErrorPage></ErrorPage>
       },
        {
             path: '/dashboard',
             element: <LoggedInPrivate><Dashboard></Dashboard> </LoggedInPrivate>,
+            errorElement: <ErrorPage></ErrorPage>,
             children:[
 
                   //Employye Routes
@@ -74,7 +78,7 @@ export const router = createBrowserRouter([
                     //Admin Routes
                     {
                         path: '/dashboard/all-employee-list',
-                        element: <AllEmployeeList></AllEmployeeList>
+                        element: <AdminPrivate><AllEmployeeList></AllEmployeeList></AdminPrivate>
                   },
                   
 

@@ -30,19 +30,6 @@ const EmployeeList = () => {
             });
       };
 
-
-      // const { data: employeeList, isPending, refetch } = useQuery({
-      //       queryKey: ['employeeList'],
-      //       queryFn: async () => {
-      //             try {
-      //                   return await axiosSecure.get('/employee-list')
-
-      //             } catch (err) {
-      //                   console.log(err)
-      //             }
-      //       }
-      // })
-
       if (isPending) {
             return 'loading'
       }
@@ -55,22 +42,6 @@ console.log(employeeList)
 
       const tableHead = ["Name", "Payment", "Verified", "Salary", "Details", ""]
 
-      const tableRow = [
-            {
-                  img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-                  name: "John Michael",
-                  email: "john@creative-tim.com",
-
-                  job: <button className="bg-red-400 p-1 text rounded-lg text-white">Pay</button>,
-                  bank: "Bank Account",
-
-                  online: true,
-
-
-                  date: "1000",
-                  detailsBtn: <button>Details</button>
-            }
-      ]
 
       const setVerify = (id) => {
 
