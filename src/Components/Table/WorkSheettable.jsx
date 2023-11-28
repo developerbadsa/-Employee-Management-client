@@ -4,8 +4,8 @@ export default function TableUsable({ tableHead, tableRow}) {
 
       const TABLE_HEAD = tableHead;
     
-      const TABLE_ROWS = tableRow;
-    
+      const TABLE_ROWS = tableRow.slice().reverse();
+    console.log(tableRow)
       return (
         <Card className="w-full">
           <CardBody className="overflow-scroll px-0">
@@ -30,7 +30,7 @@ export default function TableUsable({ tableHead, tableRow}) {
               </thead>
               <tbody>
                 {TABLE_ROWS?.map(
-                  ({ month, paidAmount, tnxid }, index) => {
+                  ({ task, workedDate, workedHours }, index) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast
                       ? "p-4"
@@ -44,7 +44,7 @@ export default function TableUsable({ tableHead, tableRow}) {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {month}
+                            {task}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -53,7 +53,7 @@ export default function TableUsable({ tableHead, tableRow}) {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {paidAmount}
+                            { workedHours}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -62,7 +62,7 @@ export default function TableUsable({ tableHead, tableRow}) {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {tnxid}
+                            {workedDate}
                           </Typography>
                         </td>
                       </tr>
