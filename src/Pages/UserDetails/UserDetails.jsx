@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosSecure from '../../Hooks/AxiosSecure/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
 import BarChart from '../../Components/BarChart/BarChart';
+import { useQuery } from 'react-query';
 
 
 
