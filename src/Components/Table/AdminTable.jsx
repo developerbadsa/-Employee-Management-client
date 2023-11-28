@@ -1,28 +1,16 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+
 import {
       Card,
-      CardHeader,
-      Input,
       Typography,
       Button,
       CardBody,
-      Chip,
-      CardFooter,
-      Tabs,
-      TabsHeader,
-      Tab,
       Avatar,
-      IconButton,
-      Tooltip,
 } from "@material-tailwind/react";
-import { useState } from "react";
 import { RxCheck, RxCross1, RxTrash } from "react-icons/rx";
-import { Link } from "react-router-dom";
 
 
 
-export default function AdminTable({ tableHead, tableRow, setVerify, handlePay, handleDetails }) {
+export default function AdminTable({ tableHead, tableRow, handleMakeHR, handleUserFire }) {
 
       const TABLE_HEAD = tableHead;
 
@@ -53,7 +41,7 @@ export default function AdminTable({ tableHead, tableRow, setVerify, handlePay, 
                               </thead>
                               <tbody>
                                     {TABLE_ROWS?.map(
-                                          ({ photoLink, name,  designation, email, isVerify, _id }, index) => {
+                                          ({ photoLink, name, designation, email, _id }, index) => {
                                                 const isLast = index === TABLE_ROWS.length - 1;
                                                 const classes = isLast
                                                       ? "p-4"
@@ -87,16 +75,9 @@ export default function AdminTable({ tableHead, tableRow, setVerify, handlePay, 
                                                                         <Typography
                                                                               variant="small"
                                                                               color="blue-gray"
-                                                                              className="font-normal"
-                                                                        >
-
-                                                                        </Typography>
-                                                                        <Typography
-                                                                              variant="small"
-                                                                              color="blue-gray"
                                                                               className="font-normal opacity-70"
                                                                         >
-                                                                             {designation}
+                                                                              {designation}
                                                                         </Typography>
                                                                   </div>
                                                             </td>
@@ -106,16 +87,18 @@ export default function AdminTable({ tableHead, tableRow, setVerify, handlePay, 
                                                                         color="blue-gray"
                                                                         className="font-normal"
                                                                   >
-                                                                        make HR
+                                                                        <Button color="blue" size="sm" onClick={() => handleMakeHR(_id)}>
+                                                                              make HR
+                                                                        </Button>
                                                                   </Typography>
                                                             </td>
                                                             <td className={classes}>
                                                                   <Typography
                                                                         variant="small"
                                                                         color="blue-gray"
-                                                                        className="font-normal text-red-600 text-xl"
+
                                                                   >
-                                                                        <RxTrash></RxTrash>
+                                                                        <Button size="sm" variant="outlined" className="flex items-center" onClick={() => handleUserFire(_id)}> <RxTrash  className="font-normal  text-red-600 text-xl"></RxTrash ></Button>
                                                                   </Typography>
                                                             </td>
                                                       </tr>

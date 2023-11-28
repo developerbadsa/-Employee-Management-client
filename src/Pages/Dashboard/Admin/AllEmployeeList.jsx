@@ -34,9 +34,16 @@ const tableRow = [
       }
 ]
 
+const handleMakeHR = (id)=>{
+      console.log('ctHR', id)
+}
+
+const handleUserFire = (id)=>{
+      console.log('ctHR', id)
+}
 
 
-console.log(employeeList?.data)
+
 if(isPending){
       return
 }
@@ -44,7 +51,7 @@ if(isPending){
       return (
             <div>
                   {/* <TableUsable tableHead={tableHead} tableRow={employeeList?.data} ></TableUsable> */}
-                  <AdminTable tableHead={tableHead} tableRow={employeeList?.data}></AdminTable>
+                  <AdminTable tableHead={tableHead} tableRow={employeeList?.data} handleUserFire={handleUserFire} handleMakeHR={handleMakeHR}></AdminTable>
             </div>
       )
 };
