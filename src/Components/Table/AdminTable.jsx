@@ -41,7 +41,7 @@ export default function AdminTable({ tableHead, tableRow, handleMakeHR, handleUs
                               </thead>
                               <tbody>
                                     {TABLE_ROWS?.map(
-                                          ({ photoLink, name, designation, email, _id }, index) => {
+                                          ({ photoLink, name, position, email, _id }, index) => {
                                                 const isLast = index === TABLE_ROWS.length - 1;
                                                 const classes = isLast
                                                       ? "p-4"
@@ -77,7 +77,7 @@ export default function AdminTable({ tableHead, tableRow, handleMakeHR, handleUs
                                                                               color="blue-gray"
                                                                               className="font-normal opacity-70"
                                                                         >
-                                                                              {designation}
+                                                                              {position}
                                                                         </Typography>
                                                                   </div>
                                                             </td>
@@ -87,9 +87,9 @@ export default function AdminTable({ tableHead, tableRow, handleMakeHR, handleUs
                                                                         color="blue-gray"
                                                                         className="font-normal"
                                                                   >
-                                                                        <Button color="blue" size="sm" onClick={() => handleMakeHR(_id)}>
+                                                                       {position ==='Employee' && <Button color="blue" size="sm" onClick={() => handleMakeHR(_id)}>
                                                                               make HR
-                                                                        </Button>
+                                                                        </Button>}
                                                                   </Typography>
                                                             </td>
                                                             <td className={classes}>
