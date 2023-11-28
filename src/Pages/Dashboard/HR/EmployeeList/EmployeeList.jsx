@@ -6,6 +6,7 @@ import TableUsable from '../../../../Components/Table/Table'
 import Swal from 'sweetalert2';
 import ReactModal from 'react-modal';
 import { Button } from '@material-tailwind/react';
+import useEmployee from '../../../../Hooks/useEmployee';
 
 const EmployeeList = () => {
       const axiosSecure = useAxiosSecure()
@@ -20,6 +21,7 @@ const EmployeeList = () => {
       });
       const currentYear = new Date().getFullYear();
       const years = Array.from({ length: 11 }, (_, index) => currentYear + index);
+      const {employeeList, isPending, refetch} = useEmployee()
 
       const handleChange = (e) => {
             setFormData({
@@ -29,17 +31,17 @@ const EmployeeList = () => {
       };
 
 
-      const { data: employeeList, isPending, refetch } = useQuery({
-            queryKey: ['employeeList'],
-            queryFn: async () => {
-                  try {
-                        return await axiosSecure.get('/employee-list')
+      // const { data: employeeList, isPending, refetch } = useQuery({
+      //       queryKey: ['employeeList'],
+      //       queryFn: async () => {
+      //             try {
+      //                   return await axiosSecure.get('/employee-list')
 
-                  } catch (err) {
-                        console.log(err)
-                  }
-            }
-      })
+      //             } catch (err) {
+      //                   console.log(err)
+      //             }
+      //       }
+      // })
 
       if (isPending) {
             return 'loading'

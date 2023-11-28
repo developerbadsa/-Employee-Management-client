@@ -2,9 +2,9 @@ import React from 'react';
 import TableUsable from '../../../Components/Table/WorkSheettable';
 import useAxiosSecure from '../../../Hooks/AxiosSecure/useAxiosSecure';
 import useAuth from '../../../Hooks/useAuth';
-import { useQuery } from '@tanstack/react-query'; // Assuming you are using react-query
 import { RxCardStackPlus } from 'react-icons/rx';
 import Swal from 'sweetalert2';
+import { useQuery } from 'react-query';
 
 const WorkSheet = () => {
       const axiosSecure = useAxiosSecure();

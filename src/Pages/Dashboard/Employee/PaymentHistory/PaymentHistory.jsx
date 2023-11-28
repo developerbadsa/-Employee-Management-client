@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import TableUsable from '../../../../Components/Table/paymenthistory';
-import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../Hooks/AxiosSecure/useAxiosSecure';
 import useAuth from '../../../../Hooks/useAuth';
+import { useQuery } from 'react-query';
 
 const PaymentHistory = () => {
       const axiosSecure = useAxiosSecure()

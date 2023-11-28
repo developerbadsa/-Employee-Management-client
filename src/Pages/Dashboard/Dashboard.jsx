@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/solid";
 import useHR from '../../Hooks/useHR/useHR';
 import useEmployeeCheck from '../../Hooks/useEmployee/useEmployee';
+import useAdminCheck from '../../Hooks/useAdmin/useAdmin';
 
 
 
@@ -17,7 +18,8 @@ const Dashboard = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
       const { user, logout } = useAuth()
       const { isHR } = useHR()
-      const {isEmployee} = useEmployeeCheck()
+      const { isEmployee } = useEmployeeCheck()
+      const { isAdmin } = useAdminCheck()
       const profileMenuItems = [
             {
                   label: "My Profile",
@@ -28,7 +30,7 @@ const Dashboard = () => {
                   icon: PowerIcon,
             },
       ];
-
+      console.log(isAdmin)
       return (
             <div>
                   <div className="lg:flex">
@@ -40,7 +42,7 @@ const Dashboard = () => {
                                     </Link>
                               </div>
                               <div className="pb-6 mt-4 overflow-x-hidden overflow-y-auto">
-                                    <p className="px-6 py-4 text-2xl font-bold ">{isHR && <span>HR </span>}{isEmployee&&<span>Employee </span>} Dashboard</p>
+                                    <p className="px-6 py-4 text-2xl font-bold ">{isHR && <span>HR </span>}{isEmployee && <span>Employee </span>}{isAdmin && <span>Admin </span>} Dashboard</p>
                                     <ul className="mb-8 text-sm">
                                           {/* HR Only */}
                                           {
@@ -69,67 +71,45 @@ const Dashboard = () => {
                                                 </>
                                           }
                                           {/* Admin Only */}
-                                          {/* {
-                                            !isHR &&    <>
-                                                <li className="flex items-center group  dark:hover:bg-gray-800">
-                                                <NavLink
-                                                      to='/dashboard/employee-list'
-                                                      className={({ isActive, isPending }) =>
-                                                            isPending ? "text-red-400" : isActive ? "text-blue-500 w-full bg-gray-600 px-6 py-4" : " px-6 py-4 "
-                                                      }
-                                                >
-                                                      <div className="flex items-center gap-2">Employee List</div>
-                                                </NavLink>
-                                          </li>
-                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
-                                                <NavLink
-                                                      to='/dashboard/work-sheet'
-                                                      className={({ isActive, isPending }) =>
-                                                            isPending ? "text-red-400" : isActive ? "text-blue-500 w-full bg-gray-600 px-6 py-4" : " px-6 py-4 "
-                                                      }
-                                                >
-                                                      <div className="flex items-center gap-2">Contact</div>
-                                                </NavLink>
-                                          </li>
-                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
-                                                <NavLink
-                                                      to='/dashboard/progress
-                                                      '
-                                                      className={({ isActive, isPending }) =>
-                                                            isPending ? "text-red-400" : isActive ? "text-blue-500 w-full bg-gray-600 px-6 py-4" : " px-6 py-4 "
-                                                      }
-                                                >
-                                                      <div className="flex items-center gap-2">Contact</div>
-                                                </NavLink>
-                                          </li>
-                                                
+                                          {
+                                                isAdmin && <>
+                                                      <li className="flex items-center group  dark:hover:bg-gray-800">
+                                                            <NavLink
+                                                                  to='/dashboard/all-employee-list'
+                                                                  className={({ isActive, isPending }) =>
+                                                                        isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                                  }
+                                                            >
+                                                                  <div className="flex items-center gap-2">Employee List</div>
+                                                            </NavLink>
+                                                      </li>
                                                 </>
-                                          } */}
+                                          }
 
                                           {
-                                            isEmployee &&    <>
-                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
-                                                <NavLink
-                                                      to='/dashboard/payment-history'
-                                                      className={({ isActive, isPending }) =>
-                                                            isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
-                                                      }
-                                                >
-                                                      <div className="flex items-center gap-2">Payment History</div>
-                                                </NavLink>
-                                          </li>
-                                          <li className="flex items-center w-full border dark:hover:bg-gray-800">
-                                                <NavLink
-                                                      to='/dashboard/work-sheet'
-                                                      className={({ isActive, isPending }) =>
-                                                            isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
-                                                      }
-                                                >
-                                                      <div className="flex items-center gap-2">Work Sheet</div>
-                                                </NavLink>
-                                          </li>
-                                                
-                                                
+                                                isEmployee && <>
+                                                      <li className="flex items-center w-full border dark:hover:bg-gray-800">
+                                                            <NavLink
+                                                                  to='/dashboard/payment-history'
+                                                                  className={({ isActive, isPending }) =>
+                                                                        isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                                  }
+                                                            >
+                                                                  <div className="flex items-center gap-2">Payment History</div>
+                                                            </NavLink>
+                                                      </li>
+                                                      <li className="flex items-center w-full border dark:hover:bg-gray-800">
+                                                            <NavLink
+                                                                  to='/dashboard/work-sheet'
+                                                                  className={({ isActive, isPending }) =>
+                                                                        isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                                  }
+                                                            >
+                                                                  <div className="flex items-center gap-2">Work Sheet</div>
+                                                            </NavLink>
+                                                      </li>
+
+
                                                 </>
                                           }
                                     </ul>
