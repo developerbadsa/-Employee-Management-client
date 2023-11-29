@@ -185,7 +185,7 @@ export const Header = () => {
                               color="blue-gray"
                               variant="text"
                               onClick={toggleIsNavOpen}
-                              className="ml-auto mr-2 lg:hidden"
+                              className="ml-12 mr-2 lg:hidden"
                         >
                               <Bars2Icon className="h-6 w-6" />
                         </IconButton>
