@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import useAxiosSecure from '../AxiosSecure/useAxiosSecure';
 import useAuth from '../useAuth';
 
 const useAdminCheck = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    const checkEmployeeStatus = async () => {
-      try {
-        const response = await axiosSecure.post('/isAdmin', { email: user?.email });
-        const isAdminResponse = response.data
-        setIsAdmin(isAdminResponse);
-      } catch (error) {
-        console.error('Error checking admin status:', error);
-      }
-    };
-
-    if (user?.email) {
-      checkEmployeeStatus();
+  const { data: isAdmin, isLoading, isError } = useQuery(
+    ['isAdmin', user?.email],
+    async () => {
+      const response = await axiosSecure.post('/isAdmin', { email: user?.email });
+      return response.data;
+    },
+    {
+      enabled: !!user?.email, 
     }
-  }, [user?.email]);
-
+  );
 
   return {
-    isAdmin
-  }
+    isAdmin,
+    isLoading,
+     isError,
+  };
 };
 
 export default useAdminCheck;

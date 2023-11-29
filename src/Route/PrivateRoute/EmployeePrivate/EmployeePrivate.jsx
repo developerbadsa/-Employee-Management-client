@@ -1,18 +1,17 @@
 import useAuth from '../../../Hooks/useAuth';
 import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
 import { Navigate, useNavigate } from 'react-router-dom';
-import useHRCheck from '../../../Hooks/useHR/useHR';
+import useEmployeeCheck from '../../../Hooks/useEmployee/useEmployee';
 
-const HRPrivate = ({ children }) => {
-      const { isHR, isLoading } = useHRCheck()
-      const goto = useNavigate()
+const EmployeePrivate = ({ children }) => {
+      const { isEmployee, isLoading } = useEmployeeCheck()
       const { loading} = useAuth()
 
 
       if(loading || isLoading){
             return <LoadingSpinner></LoadingSpinner>
       }
-      if (isHR) {
+      if (isEmployee) {
 
             return children
 
@@ -20,4 +19,4 @@ const HRPrivate = ({ children }) => {
       return <Navigate to="/"  replace></Navigate>
 };
 
-export default HRPrivate;
+export default EmployeePrivate;

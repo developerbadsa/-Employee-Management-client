@@ -16,6 +16,7 @@ import LoggedOutPrivate from "./PrivateRoute/LoggedInPrivate/LoggedOutPrivate";
 import LoggedInPrivate from "./PrivateRoute/LoggedInPrivate/LoggedInPrivate";
 import AdminPrivate from "./PrivateRoute/AdminPrivate/AdminPrivate";
 import HRPrivate from "./PrivateRoute/HRPrivate/HRPrivate";
+import EmployeePrivate from "./PrivateRoute/EmployeePrivate/EmployeePrivate";
 
 export const router = createBrowserRouter([
       {
@@ -54,11 +55,11 @@ export const router = createBrowserRouter([
                   //Employye Routes
                   {
                         path: '/dashboard/payment-history',
-                        element: <PaymentHistory></PaymentHistory>
+                        element: <EmployeePrivate> <PaymentHistory></PaymentHistory></EmployeePrivate>
                   },
                   {
                         path: '/dashboard/work-sheet',
-                        element: <WorkSheet></WorkSheet>
+                        element: <EmployeePrivate><WorkSheet></WorkSheet></EmployeePrivate>
                   },
 
 

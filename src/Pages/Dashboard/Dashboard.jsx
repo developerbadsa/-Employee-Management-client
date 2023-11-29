@@ -30,7 +30,6 @@ const Dashboard = () => {
                   icon: PowerIcon,
             },
       ];
-      console.log(isAdmin)
       return (
             <div>
                   <div className="lg:flex">

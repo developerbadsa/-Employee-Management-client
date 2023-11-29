@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useAdminCheck from '../../../Hooks/useAdmin/useAdmin';
 import useAuth from '../../../Hooks/useAuth';
 import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
 
 const AdminPrivate = ({ children }) => {
-      const { isAdmin } = useAdminCheck()
-      const goto = useNavigate()
-      const {user, loading} = useAuth()
+  const { isAdmin, isLoading } = useAdminCheck();
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
 
-
-      if(loading){
-            return <LoadingSpinner></LoadingSpinner>
+  useEffect(() => {
+    if (!isLoading) {
+      if (!isAdmin) {
+        navigate('/');
       }
-      if (isAdmin) {
+    }
+  }, [isLoading, isAdmin, navigate]);
 
-            return children
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
-      }
-      return goto('/')
+  return children;
 };
 
 export default AdminPrivate;

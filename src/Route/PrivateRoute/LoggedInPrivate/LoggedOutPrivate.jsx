@@ -1,7 +1,7 @@
-import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from '@material-tailwind/react';
 import useAuth from '../../../Hooks/useAuth';
+import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
 
 const LoggedOutPrivate = ({children}) => {
 
@@ -9,7 +9,7 @@ const LoggedOutPrivate = ({children}) => {
       const goto = useNavigate()
 
       if(loading){
-            return <Spinner className="h-16 w-16 text-gray-900/50" />
+            return <LoadingSpinner></LoadingSpinner>
       }
       if(user){
            return goto('/')
