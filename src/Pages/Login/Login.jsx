@@ -3,41 +3,66 @@ import SectionIntro from '../../Components/IntroSection/SectionIntro';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../Hooks/useAxiosPublic/useAxiosPublic';
 
 const Login = () => {
 
       const goto = useNavigate()
-      const {login} = useAuth()
+      const axiosPublic = useAxiosPublic()
+      const { login, setLoading, user } = useAuth()
 
-      const handleLogin =(e)=>{
+      const handleLogin = (e) => {
             e.preventDefault()
             const email = e.target.email.value
             const password = e.target.password.value
 
-         const LoginFormData = {
-             email, password
-         }
+            //    const LoginFormData = {
+            //        email, password
+            //    }
 
-         login(email, password)
-         .then(res=>{
-            Swal.fire({
-                  icon: "success",
-                  title: "Login Success",
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-                goto('/dashboard')
 
-  
-         })
-         .catch(err=>{
-            Swal.fire({
-                  icon: "warning",
-                  title: "Login problem",
-                  showConfirmButton: false,
-                  timer: 1500
-                })
-          })
+
+            login(email, password)
+                  .then(res => {
+                        const FirebaseLoggedEmail = res?.user.email
+                        const FirebaseLoggedName = res?.user.displayName
+
+
+                        axiosPublic.get('/check-user', { params: { FirebaseLoggedEmail, FirebaseLoggedName } })
+                              .then((resServer) => {
+                                    if (resServer?.data.email === FirebaseLoggedEmail && resServer?.data.email === FirebaseLoggedName) {
+                                          Swal.fire({
+                                                icon: "success",
+                                                title: "Login Success",
+                                                showConfirmButton: false,
+                                                timer: 2000
+                                          })
+
+                                          goto('/dashboard')
+                                    }
+                                    console.log(resServer.data)
+                              })
+                              .catch(() => {
+                                    Swal.fire({
+                                          icon: "warning",
+                                          title: "Problem with login. Register Again",
+                                          showConfirmButton: false,
+                                          timer: 2000
+                                    })
+                              })
+
+
+
+                  })
+                  .catch(err => {
+                        setLoading(false)
+                        Swal.fire({
+                              icon: "warning",
+                              title: `${err?.message}`,
+                              showConfirmButton: false,
+                              timer: 1500
+                        })
+                  })
 
 
       }
@@ -50,13 +75,13 @@ const Login = () => {
                               <SectionIntro title={'Login EM'}></SectionIntro>
                               <form onSubmit={handleLogin}>
                                     <div className="container px-4 mx-auto" />
-                                    
+
                                     <div className="mb-6">
                                           <label
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                               Your Email
+                                                Your Email
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
@@ -70,7 +95,7 @@ const Login = () => {
                                                 className="block mb-2 text-sm font-medium dark:text-gray-400"
                                                 htmlFor=""
                                           >
-                                               Password
+                                                Password
                                           </label>
                                           <input
                                                 className="block w-full px-4 py-3 mb-2 text-sm placeholder-gray-500 bg-white border rounded dark:text-gray-400 dark:placeholder-gray-500 dark:border-gray-800 dark:bg-gray-800"
@@ -79,7 +104,7 @@ const Login = () => {
                                                 placeholder="password"
                                           />
                                     </div>
-                                    
+
                                     <div className="mt-7">
                                           <div className="flex justify-start space-x-2">
                                                 <button
@@ -89,7 +114,7 @@ const Login = () => {
                                                       Login
                                                 </button>
                                           </div>
-                                          
+
                                     </div>
                                     <span className='-bottom-3 relative py-3 '>If You dont have Account please <Link to={'/register'} className='text-blue-800 '>Register Now</Link></span>
                               </form>

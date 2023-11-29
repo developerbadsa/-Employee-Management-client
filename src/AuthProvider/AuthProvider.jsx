@@ -28,10 +28,10 @@ const AuthProvider = ({ children }) => {
       useEffect(() => {
             const unsubscribe = onAuthStateChanged(Auth, (currentUser) => {
 
-                  setLoading(false)
+                 
                   setUser(currentUser)
                   if (currentUser) {
-                        // get token and store client
+                        setLoading(false)
                         const userInfo = { email: currentUser.email };
                         console.log(userInfo)
                         axiosPublic.post('/jwt', userInfo)
@@ -41,6 +41,7 @@ const AuthProvider = ({ children }) => {
                                     setLoading(false);
                                 }
                             })
+
                     }
                     else {
                         localStorage.removeItem('access-token');
@@ -71,7 +72,7 @@ const AuthProvider = ({ children }) => {
 
 
       const userInfo = {
-            createUser, login, logout, user, updateUserProfile, loading
+            createUser, login, logout, user, updateUserProfile, loading, setLoading
       }
 
 
