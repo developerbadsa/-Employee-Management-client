@@ -9,7 +9,7 @@ const Login = () => {
 
       const goto = useNavigate()
       const axiosPublic = useAxiosPublic()
-      const { login, setLoading, user } = useAuth()
+      const { login, setLoading, user, logout} = useAuth()
 
       const handleLogin = (e) => {
             e.preventDefault()
@@ -39,8 +39,10 @@ const Login = () => {
                                           })
 
                                           goto('/dashboard')
+                                    }else{
+                                          logout()
                                     }
-                                    console.log(resServer.data)
+                                    console.log(resServer)
                               })
                               .catch(() => {
                                     Swal.fire({
