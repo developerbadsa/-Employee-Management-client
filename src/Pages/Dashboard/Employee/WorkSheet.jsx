@@ -52,7 +52,6 @@ const WorkSheet = () => {
             const employeeTask = {
                   task, workedHours, workedDate, userName, userEmail
             }
-            console.log(user.email)
             axiosSecure.post(`/employee-tasks/?email=${userEmail}`, employeeTask)
             .then(res=>{
                   if(res?.data.acknowledged ){

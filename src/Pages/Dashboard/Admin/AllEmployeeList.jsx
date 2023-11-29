@@ -31,9 +31,14 @@ const AllEmployeeList = () => {
       const handleMakeHR = (id) => {
 
             axiosSecure.put('/users/makeHR', { id })
-                  .then(res => {
+                  .then(() => {
                         refetch()
-                        console.log(res)
+                        Swal.fire({
+                              icon: "success",
+                              title: "Marked Done as HR",
+                              showConfirmButton: false,
+                              timer: 1500
+                            });
                   })
                   .catch(err => console.log(err))
 
