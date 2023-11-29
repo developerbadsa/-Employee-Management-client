@@ -34,15 +34,15 @@ const Dashboard = () => {
             <div>
                   <div className="lg:flex">
                         {/* Sidebar */}
-                        <nav className="lg:w-82 lg:flex-shrink-0  lg:left-0 lg:bottom-0 lg:flex lg:flex-col lg:dark:bg-gray-900 lg:text-blue-gray-900 lg:overflow-hidden lg:z-50 ">
+                        <nav className="lg:w-82 lg:flex-shrink-0  lg:left-0 lg:bottom-0 lg:flex lg:flex-col lg:dark:bg-gray-900 lg:text-blue-gray-900 lg:z-50 ">
                               <div className="lg:flex items-center w-full pl-4 pt-4 pb-4 hidden">
                                     <Link to='/'>
                                           <h2 className="text-base font-bold  whitespace-nowrap w-full "> <SiteLogo></SiteLogo> </h2>
                                     </Link>
                               </div>
-                              <div className="pb-6 mt-4 overflow-x-hidden overflow-y-auto">
-                                    <p className="px-6 py-4 text-2xl font-bold ">{isHR && <span>HR </span>}{isEmployee && <span>Employee </span>}{isAdmin && <span>Admin </span>} Dashboard</p>
-                                    <ul className="mb-8 text-sm">
+                              <div className="pb-6 mt-1 lg:mt-3 overflow-x-hidden overflow-y-auto">
+                                    <p className="px-6 py-2 text-2xl font-bold ">{isHR && <span>HR </span>}{isEmployee && <span>Employee </span>}{isAdmin && <span>Admin </span>} Dashboard</p>
+                                    <ul className="mb-0 text-sm">
                                           {/* HR Only */}
                                           {
                                                 isHR && <>
@@ -118,7 +118,7 @@ const Dashboard = () => {
                         {/* Main Content */}
                         <div className="lg:flex-1 lg:mx-auto lg:content-wrapper">
                               {/* Top Navbar */}
-                              <section className="sticky top-0 z-40 px-3 py-3 bg-white shadow dark:bg-gray-900 lg:px-5 hidden lg:block">
+                              <section className="sticky top-0 px-3 py-3  dark:bg-gray-900 lg:px-5 hidden lg:block">
                                     <nav className="relative">
                                           <div className="flex items-center justify-end">
                                                 <div className="flex items-center">
@@ -325,9 +325,9 @@ const Dashboard = () => {
                                           </div>
                                     </div>
                               </section> */}
-                              <section className="py-3 pl-24">
-                                    <div className="container px-4 mx-auto">
-                                          <div className="overflow-x-auto rounded shadow dark:bg-gray-900 bg-gray-50">
+                              <section className="py-3 w-full">
+                                    <div className="container px-3 mx-auto ">
+                                          <div className="overflow-x-auto rounded border shadow dark:bg-gray-900 bg-gray-50">
 
 
                                                 <Outlet></Outlet>
