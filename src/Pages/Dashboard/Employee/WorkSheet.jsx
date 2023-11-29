@@ -5,23 +5,31 @@ import useAuth from '../../../Hooks/useAuth';
 import { RxCardStackPlus } from 'react-icons/rx';
 import Swal from 'sweetalert2';
 import { useQuery } from 'react-query';
+import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
 
 const WorkSheet = () => {
       const axiosSecure = useAxiosSecure();
       const { user } = useAuth();
 
+
       const { data: employeeData, isLoading, refetch } = useQuery({
             queryKey: ['tasklist', user?.email],
             queryFn: async () => {
-                  try {
-                        const isEmployeeResponse = await axiosSecure.get('/employee-task', { email: user?.email });
-                        return isEmployeeResponse.data;
-                  } catch (error) {
-                        throw new Error('Error fetching payment history: ' + error.message);
-                  }
+              try {
+                if (user) {
+                  const userEmail = user?.email;
+                  const isEmployeeResponse = await axiosSecure.get('/employee-task', {
+                    params: { email: userEmail }
+                  });
+                  return isEmployeeResponse.data;
+                }
+              } catch (error) {
+                throw new Error('Error fetching employee tasks: ' + error.message);
+              }
             },
             enabled: !!user?.email,
-      });
+          });
+          
 
       const exampleData = [
             {
@@ -61,8 +69,8 @@ const WorkSheet = () => {
             console.log(employeeTask)
       }
 
-      if (isLoading && !employeeData) {
-            return 'loading';
+      if (isLoading ) {
+            return <LoadingSpinner></LoadingSpinner>
       } else {
             const tableData = employeeData || exampleData;
 

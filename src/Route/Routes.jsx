@@ -15,6 +15,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import LoggedOutPrivate from "./PrivateRoute/LoggedInPrivate/LoggedOutPrivate";
 import LoggedInPrivate from "./PrivateRoute/LoggedInPrivate/LoggedInPrivate";
 import AdminPrivate from "./PrivateRoute/AdminPrivate/AdminPrivate";
+import HRPrivate from "./PrivateRoute/HRPrivate/HRPrivate";
 
 export const router = createBrowserRouter([
       {
@@ -64,15 +65,15 @@ export const router = createBrowserRouter([
                   //HR Routes
                   {
                         path: '/dashboard/employee-list',
-                        element: <EmployeeList></EmployeeList>
+                        element: <HRPrivate> <EmployeeList></EmployeeList></HRPrivate>
                   },
                   {
                         path: '/dashboard/progress',
-                        element: <Progress></Progress>
+                        element: <HRPrivate><Progress></Progress></HRPrivate>
                   },
                   {
                         path: '/dashboard/details/:id',
-                        element: <UserDetails></UserDetails>
+                        element:<HRPrivate> <UserDetails></UserDetails></HRPrivate>
                   },
 
                     //Admin Routes

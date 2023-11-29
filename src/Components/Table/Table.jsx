@@ -1,313 +1,163 @@
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import {
+  Card,
+  CardHeader,
+  Input,
+  Typography,
+  Button,
+  CardBody,
+  Chip,
+  CardFooter,
+  Tabs,
+  TabsHeader,
+  Tab,
+  Avatar,
+  IconButton,
+  Tooltip,
+} from "@material-tailwind/react";
+import { useState } from "react";
+import { RxCheck, RxCross1 } from "react-icons/rx";
+import { Link } from "react-router-dom";
 
-const Table = ({ columns, data }) => {
+
+
+export default function TableUsable({ tableHead, tableRow, setVerify, handlePay, handleDetails }) {
+
+  const TABLE_HEAD = tableHead;
+
+  const TABLE_ROWS = tableRow;
+
   return (
-    // <table>
-    //   <thead className="bg-lightGray-50">
-    //     <tr className="text-xs text-left text-gray-500 border-b border-gray-200 dark:border-gray-800 ">
-    //       {columns.map((column) => (
-    //         <th className="flex items-center py-4 pl-6 font-medium dark:text-gray-400">
-    //         <span>Name</span>
-    //       </th>
-    //       ))}
-    //     </tr>
-    //   </thead>
-    //   <tbody>
-    //     {data.map((row) => (
-    //       <tr key={row.id} >
-    //         {columns.map((column) => (
-    //           <td key={column.key}>{row[column.key]}</td>
-    //         ))}
-    //       </tr>
-    //     ))}
-    //   </tbody>
-    // </table>
+    <Card className=" w-full">
+   
+      <CardBody className="overflow-scroll px-0">
+        <table className="mt-4 w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th
+                  key={head}
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
+                  >
+                    {head}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {TABLE_ROWS?.map(
+              ({ photoLink, name, email, job, bankAccount, isVerify, Salary, detailsBtn, _id }, index) => {
+                const isLast = index === TABLE_ROWS.length - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
 
-    <table className="w-full table-auto">
-      <thead className="bg-lightGray-50">
-        <tr className="text-xs text-left text-gray-500 border-b border-gray-200 dark:border-gray-800">
-          <th className="flex items-center py-4 pl-6 font-medium dark:text-gray-400"> 
-          {columns.map((column,inx) => (
-            <th key={inx} className="flex items-center py-4 pl-6 font-medium dark:text-gray-400">
-            <span>Name</span>
-          </th>
-          ))} </th>
-          
-        </tr>
-      </thead>
-      <tbody>
-        <tr className="border-b border-gray-200 dark:border-gray-800">
-          <td className="flex items-center px-6 py-3 font-medium">
-            <input className="mr-4" type="checkbox" name="" id="" />
-            <div className="flex">
-              <img
-                className="object-cover w-10 h-10 mr-4 rounded-full"
-                src="https://i.postimg.cc/WbPKvgBr/pexels-italo-melo-2379005.jpg"
-                alt=""
-              />
-              <div>
-                <p className="text-sm font-medium dark:text-gray-400">
-                  John Smith
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-500">
-                  john@gmail.com
-                </p>
-              </div>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            28
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            07/01/2022
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            Product Designer
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            <span className="inline-block px-2 py-1 text-blue-700 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-gray-400">
-              Approved
-            </span>
-          </td>
-          <td className="px-6">
-            <div className="flex ">
-              <a
-                href="#"
-                className="px-4 py-2 mr-4 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                Edit
-              </a>
-              <a
-                href="#"
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                call
-              </a>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium">
-            <a
-              href="#"
-              className="text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:text-gray-400"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={16}
-                height={16}
-                fill="currentColor"
-                className="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-            </a>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-200 dark:border-gray-800">
-          <td className="flex items-center px-6 py-3 font-medium">
-            <input className="mr-4" type="checkbox" name="" id="" />
-            <div className="flex">
-              <img
-                className="object-cover w-10 h-10 mr-4 rounded-full"
-                src="https://i.postimg.cc/WbPKvgBr/pexels-italo-melo-2379005.jpg"
-                alt=""
-              />
-              <div>
-                <p className="text-sm font-medium dark:text-gray-400">
-                  Adam Smith
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-500">
-                  adam@gmail.com
-                </p>
-              </div>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            28
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            07/01/2022
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            Product Designer
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            <span className="inline-block px-2 py-1 text-blue-700 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-gray-400">
-              Approved
-            </span>
-          </td>
-          <td className="px-6">
-            <div className="flex ">
-              <a
-                href="#"
-                className="px-4 py-2 mr-4 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                Edit
-              </a>
-              <a
-                href="#"
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                call
-              </a>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium">
-            <a
-              href="#"
-              className="text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:text-gray-400"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={16}
-                height={16}
-                fill="currentColor"
-                className="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-            </a>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-200 dark:border-gray-800">
-          <td className="flex items-center px-6 py-3 font-medium">
-            <input className="mr-4" type="checkbox" name="" id="" />
-            <div className="flex">
-              <img
-                className="object-cover w-10 h-10 mr-4 rounded-full"
-                src="https://i.postimg.cc/WbPKvgBr/pexels-italo-melo-2379005.jpg"
-                alt=""
-              />
-              <div>
-                <p className="text-sm font-medium dark:text-gray-400">
-                  Adron Anthony
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-500">
-                  adron@gmail.com
-                </p>
-              </div>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            28
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            07/01/2022
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            Product Designer
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            <span className="inline-block px-2 py-1 text-blue-700 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-gray-400">
-              Approved
-            </span>
-          </td>
-          <td className="px-6">
-            <div className="flex ">
-              <a
-                href="#"
-                className="px-4 py-2 mr-4 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                Edit
-              </a>
-              <a
-                href="#"
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                call
-              </a>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium">
-            <a
-              href="#"
-              className="text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:text-gray-400"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={16}
-                height={16}
-                fill="currentColor"
-                className="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-            </a>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-200 dark:border-gray-800">
-          <td className="flex items-center px-6 py-3 font-medium">
-            <input className="mr-4" type="checkbox" name="" id="" />
-            <div className="flex">
-              <img
-                className="object-cover w-10 h-10 mr-4 rounded-full"
-                src="https://i.postimg.cc/WbPKvgBr/pexels-italo-melo-2379005.jpg"
-                alt=""
-              />
-              <div>
-                <p className="text-sm font-medium dark:text-gray-400">
-                  Robin Adren
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-500">
-                  robin@gmail.com
-                </p>
-              </div>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            28
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            07/01/2022
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            Product Designer
-          </td>
-          <td className="px-6 text-sm font-medium dark:text-gray-400">
-            <span className="inline-block px-2 py-1 text-blue-700 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-gray-400">
-              Declined
-            </span>
-          </td>
-          <td className="px-6">
-            <div className="flex ">
-              <a
-                href="#"
-                className="px-4 py-2 mr-4 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                Edit
-              </a>
-              <a
-                href="#"
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-200 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 hover:bg-gray-300"
-              >
-                call
-              </a>
-            </div>
-          </td>
-          <td className="px-6 text-sm font-medium">
-            <a
-              href="#"
-              className="text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:text-gray-400"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={16}
-                height={16}
-                fill="currentColor"
-                className="bi bi-three-dots"
-                viewBox="0 0 16 16"
-              >
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-              </svg>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
+                return (
+                  <tr key={email}>
+                    <td className={classes}>
+                      <div className="flex items-center gap-3">
+                        {photoLink && <Avatar src={photoLink} alt={name} size="sm" />}
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {name}
+                          </Typography>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal opacity-70"
+                          >
+                            {email}
+                          </Typography>
+                        </div>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="flex flex-col">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                         {isVerify? <button className="bg-red-400 p-1 text rounded-lg text-white" onClick={()=>handlePay({email,Salary, _id, name, bankAccount})}>Pay</button>:<button className="bg-gray-400 p-1 text rounded-lg disable" disabled>Pay</button>}
+                        </Typography>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-70"
+                        >
+                           {bankAccount && <>Bank:{bankAccount}</>
+                          }
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {
+                          !isVerify ? <button onClick={() => { setVerify(_id) }} className="text-3xl text-red-600"><RxCross1></RxCross1></button> : <button className="text-3xl text-green-600"><RxCheck></RxCheck></button>
+                        }
+                      </Typography>
+                      {/* <div className="w-max">
+                        <Chip
+                          variant="ghost"
+                          size="sm"
+                          value={isverified ? <RxCross1></RxCross1> : <RxCheck></RxCheck>}
+                          color={isverified ? "green" : "blue-gray"}
+                        />
+                      </div> */}
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {Salary}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {bankAccount && <Link to={`/dashboard/details/${_id}`}>Details</Link>}
+                      </Typography>
+                    </td>
+                  </tr>
+                );
+              },
+            )}
+          </tbody>
+        </table>
+      </CardBody>
+      {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <Typography variant="small" color="blue-gray" className="font-normal">
+          Page 1 of 10
+        </Typography>
+        <div className="flex gap-2">
+          <Button variant="outlined" size="sm">
+            Previous
+          </Button>
+          <Button variant="outlined" size="sm">
+            Next
+          </Button>
+        </div>
+      </CardFooter> */}
+    </Card>
   );
-};
-
-export default Table;
+}
