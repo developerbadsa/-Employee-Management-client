@@ -56,8 +56,7 @@ export function Footer() {
           <Typography
             variant="small"
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
-          >
-            &copy; {currentYear} <a href="https://material-tailwind.com/">Material Tailwind</a>. All
+          >  Employee Managemnet. All
             Rights Reserved.
           </Typography>
         </div>

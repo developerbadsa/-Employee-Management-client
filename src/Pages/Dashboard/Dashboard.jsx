@@ -356,7 +356,6 @@ const Dashboard = () => {
 
                                     </div>
                               </section>
-                              {/* Add your other sections here */}
                         </div>
                   </div>
             </div>

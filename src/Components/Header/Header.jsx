@@ -173,9 +173,7 @@ export const Header = () => {
             <Navbar className="mx-auto max-w-screen-xl p-2  lg:pl-6 shadow-none">
                   <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
                         <Typography
-                              as="a"
-                              href="#"
-                              className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+                              className="mr-4 ml-2 cursor-pointer py-1.5 font-medium hidden sm:flex"
                         >
                               <SiteLogo></SiteLogo>
                         </Typography>
