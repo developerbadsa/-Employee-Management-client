@@ -11,6 +11,7 @@ import {
 import useHR from '../../Hooks/useHR/useHR';
 import useEmployeeCheck from '../../Hooks/useEmployee/useEmployee';
 import useAdminCheck from '../../Hooks/useAdmin/useAdmin';
+import { RxHome } from 'react-icons/rx';
 
 
 
@@ -21,10 +22,6 @@ const Dashboard = () => {
       const { isEmployee } = useEmployeeCheck()
       const { isAdmin } = useAdminCheck()
       const profileMenuItems = [
-            {
-                  label: "My Profile",
-                  icon: UserCircleIcon,
-            },
             {
                   label: "Log Out",
                   icon: PowerIcon,
@@ -43,6 +40,16 @@ const Dashboard = () => {
                               <div className="pb-6 mt-1 lg:mt-3 overflow-x-hidden overflow-y-auto">
                                     <p className="px-6 py-2 text-2xl font-bold ">{isHR && <span>HR </span>}{isEmployee && <span>Employee </span>}{isAdmin && <span>Admin </span>} Dashboard</p>
                                     <ul className="mb-0 text-sm">
+                                          <li className="flex items-center group  dark:hover:bg-gray-800">
+                                                <NavLink
+                                                      to='/dashboard/profile'
+                                                      className={({ isActive, isPending }) =>
+                                                            isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                      }
+                                                >
+                                                      <div className="flex items-center gap-2">Profile</div>
+                                                </NavLink>
+                                          </li>
                                           {/* HR Only */}
                                           {
                                                 isHR && <>
@@ -111,6 +118,17 @@ const Dashboard = () => {
 
                                                 </>
                                           }
+                                          <div className='divide'></div>
+                                          <li className="flex items-center group  dark:hover:bg-gray-800">
+                                                <NavLink
+                                                      to='/'
+                                                      className={({ isActive, isPending }) =>
+                                                            isPending ? "text-red-400" : isActive ? "text-blue-400 w-full bg-gray-800 px-6 py-4" : " px-6 py-4 "
+                                                      }
+                                                >
+                                                      <div className="flex items-center gap-2"><RxHome></RxHome> Home</div>
+                                                </NavLink>
+                                          </li>
                                     </ul>
                               </div>
                         </nav>

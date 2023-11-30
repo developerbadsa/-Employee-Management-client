@@ -17,6 +17,7 @@ import LoggedInPrivate from "./PrivateRoute/LoggedInPrivate/LoggedInPrivate";
 import AdminPrivate from "./PrivateRoute/AdminPrivate/AdminPrivate";
 import HRPrivate from "./PrivateRoute/HRPrivate/HRPrivate";
 import EmployeePrivate from "./PrivateRoute/EmployeePrivate/EmployeePrivate";
+import UserProfile from "../Pages/Dashboard/Profile";
 
 export const router = createBrowserRouter([
       {
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
                         path: '/dashboard/all-employee-list',
                         element: <AdminPrivate><AllEmployeeList></AllEmployeeList></AdminPrivate>
                   },
+                  {
+                        path: '/dashboard/profile',
+                        element: <LoggedInPrivate><UserProfile></UserProfile></LoggedInPrivate>
+                  }
                   
 
             ]

@@ -79,6 +79,8 @@ console.log(employeeList.data)
             formData.tnxid = 'transaction id'
 
 
+            axiosSecure.get('/pay-to-employee', formData)
+
 
             axiosSecure.post('/pay-to-employee', formData)
 

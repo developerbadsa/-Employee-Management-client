@@ -38,11 +38,10 @@ const Login = () => {
                                                 timer: 2000
                                           })
 
-                                          goto('/dashboard')
+                                          goto('/dashboard/profile')
                                     }else{
                                           logout()
                                     }
-                                    console.log(resServer)
                               })
                               .catch(() => {
                                     Swal.fire({

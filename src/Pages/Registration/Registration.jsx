@@ -4,13 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../../Hooks/useAuth';
 import Swal from 'sweetalert2';
-import useAxiosSecure from '../../Hooks/AxiosSecure/useAxiosSecure';
+import useAxiosPublic from '../../Hooks/useAxiosPublic/useAxiosPublic';
 
 const Registration = () => {
       const [imgUrl, setImgUrl] = useState(null)
-      const { createUser, user, loading, updateUserProfile} = useAuth()
+      const { createUser, user, loading,setLoading , updateUserProfile} = useAuth()
       const goto = useNavigate()
-      const axiosSecure = useAxiosSecure()
+      const axiosPublic = useAxiosPublic()
 
       const handleImg = (e) => {
             const file = e.target.files[0];
@@ -38,7 +38,7 @@ const Registration = () => {
             const email = e.target.email.value
             const password = e.target.password.value
             const photo = e.target.photo.files[0]
-           
+            setLoading(false)
             
 
             const imgApiSecret = import.meta.env.VITE_IMGAPI
@@ -99,8 +99,7 @@ const Registration = () => {
 
                                    await updateUserProfile(name, photoLink)
 
-                                    const FormDataRes = await axiosSecure.post('http://localhost:3000/users', RegisterFormData)
-                                    console.log(FormDataRes)
+                                    const FormDataRes = await axiosPublic.post('/users', RegisterFormData)
                                     if(FormDataRes.data.insertedId){
                                           Swal.fire({
                                                 icon: "success",
@@ -108,9 +107,16 @@ const Registration = () => {
                                                 showConfirmButton: false,
                                                 timer: 1500
                                             })
-                                            goto('/dashboard')
+                                            goto('/dashboard/profile')
         
                                             window.location.reload()
+                                    }else{
+                                          Swal.fire({
+                                                icon: "warning",
+                                                title: `Essue with register`,
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            })
                                     }
                                    
                                      
@@ -119,7 +125,12 @@ const Registration = () => {
                       
                               
                           } catch (error) {
-                                          console.log(error);
+                              Swal.fire({
+                                    icon: "warning",
+                                    title: `${error?.mmessage}`,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
                                       }
                                       
                          

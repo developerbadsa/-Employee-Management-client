@@ -3,9 +3,9 @@ import SectionIntro from '../../../Components/IntroSection/SectionIntro';
 
 const ContactSection = () => {
       return (
-            <section className="flex items-center bg-gray-100 lg:h-screen font-poppins dark:bg-gray-800 my-44">
-                  <div className="justify-center flex-1  px-4 py-4 mx-auto lg:py-11 md:px-6">
-                        <div className="border border-gray-200 shadow-md bg-gradient-to-l dark:border-gray-900  via-gray-50 dark:via-gray-900 from-blue-100 to-blue-100 dark:to-gray-900 dark:from-gray-900 py-11">
+            <section className="flex items-center bg-gray-100 lg:h-screen dark:bg-gray-800 my-44 w-full border">
+                  <div className="justify-center flex-1  px-4 py-4 mx-auto lg:py-11 md:px-6 ">
+                        <div className="border border-gray-200 shadow-md bg-gradient-to-l dark:border-gray-900  via-gray-50 dark:via-gray-900 from-blue-100 to-blue-100 dark:to-gray-900 dark:from-gray-900 py-11 ">
                               {/* <SectionIntro title={'Contact Us'} description={'Have questions or need assistance? Feel free to reach out to us. Were here to help!'}></SectionIntro> */}
                               <div className="flex flex-col-reverse flex-wrap lg:flex-row">
                                     <div className="w-full px-4 lg:w-1/2 ">
@@ -81,7 +81,7 @@ const ContactSection = () => {
                                                             <span> +1 (555) 123-4567 ,</span> <span> +977-014151678</span>
                                                       </div>
                                                 </div>
-                                                <div className="flex text-gray-400 dark:text-gray-400">
+                                                <div className=" text-gray-400 dark:text-gray-400 lg:flex">
                                                       <svg
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             width={16}
@@ -92,7 +92,7 @@ const ContactSection = () => {
                                                       >
                                                             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
                                                       </svg>
-                                                      <div className="max-w-xl ml-4 text-lg font-semibold tracking-wide text-gray-500 dark:text-gray-400">
+                                                      <div className=" ml-4 text-sm font-semibold tracking-wide text-gray-500 dark:text-gray-400">
                                                             support@employeemanagement.com
                                                       </div>
                                                 </div>
