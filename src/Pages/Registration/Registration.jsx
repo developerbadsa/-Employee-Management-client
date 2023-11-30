@@ -62,10 +62,7 @@ const Registration = () => {
                   const hasUppercase = /[A-Z]/.test(password);
                   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-                 if(loading){
-                  console.log('loading')
-                  return
-                 }else if (password.length < 6) {
+               if (password.length < 6) {
                         Swal.fire({
                               icon: "error",
                               title: "Oops...",
@@ -126,8 +123,8 @@ const Registration = () => {
                               
                           } catch (error) {
                               Swal.fire({
-                                    icon: "warning",
-                                    title: `${error?.mmessage}`,
+                                    icon: 'warning',
+                                    title: `${error?.code}`,
                                     showConfirmButton: false,
                                     timer: 1500
                                 })

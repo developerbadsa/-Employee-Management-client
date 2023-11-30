@@ -6,6 +6,9 @@ import ReactModal from 'react-modal';
 import useEmployee from '../../../../Hooks/useEmployee';
 import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
 import TableUsable from '../../../../Components/Table/Table';
+import EmployeeCard from '../../../../Components/EmployeeCard/EmployeeCard';
+import { Button } from '@material-tailwind/react';
+import { RxGrid, RxTable } from 'react-icons/rx';
 
 const EmployeeList = () => {
       const axiosSecure = useAxiosSecure()
@@ -20,7 +23,8 @@ const EmployeeList = () => {
       });
       const currentYear = new Date().getFullYear();
       const years = Array.from({ length: 11 }, (_, index) => currentYear + index);
-      const {employeeList, isPending, refetch} = useEmployee()
+      const { employeeList, isPending, refetch } = useEmployee()
+      const [tableView, setTableView] = useState(true)
 
       const handleChange = (e) => {
             setFormData({
@@ -36,7 +40,7 @@ const EmployeeList = () => {
             return <div className='text-2xl py-8 px-4 text-deep-orange-700'>No data to display</div>
       }
 
-console.log(employeeList.data)
+      console.log(employeeList.data)
       // const {_id, name, bankAccount, position, Salary, designation, email, photoLink, isVerify}= employeeList?.data[0]
 
       const tableHead = ["Name", "Payment", "Verified", "Salary", "Details", ""]
@@ -68,6 +72,9 @@ console.log(employeeList.data)
             setSalary(Salary)
             setBankAccount(bankAccount)
             setName(name)
+
+
+
       }
 
       const handlePaySubmit = (e) => {
@@ -79,35 +86,68 @@ console.log(employeeList.data)
             formData.tnxid = 'transaction id'
 
 
-            axiosSecure.get('/pay-to-employee', formData)
-
-
-            axiosSecure.post('/pay-to-employee', formData)
-
+            axiosSecure.get('/payment-list-check', {
+                  params: {
+                        formData
+                  }
+            })
                   .then(res => {
-                        setShowPayModal(false)
-                        if (res.data.acknowledged) {
+                        if (res.data) {
+                              axiosSecure.post('/pay-to-employee', formData)
+
+                                    .then(res => {
+                                          setShowPayModal(false)
+                                          if (res.data.acknowledged) {
+                                                Swal.fire({
+                                                      icon: "success",
+                                                      title: `Successfully You have Paid to <span className='font-bold text-green-400'> ${name}</span>`,
+                                                      showConfirmButton: false,
+                                                      timer: 1500
+                                                });
+                                          }
+                                    })
+                        } else {
                               Swal.fire({
-                                    icon: "success",
-                                    title: `Successfully You have Paid to <span className='font-bold text-green-400'> ${name}</span>`,
+                                    icon: "warning",
+                                    title: `You Have Paid That Employee on ${formData?.month}, you can't twice`,
                                     showConfirmButton: false,
                                     timer: 1500
                               });
                         }
                   })
 
+
+
       };
 
-      const handleDetails = (id)=>{
+      const handleDetails = (id) => {
             console.log('details', id)
       }
+      const handleSalary = (e) => {
+            setSalary(e.target.value)
+      }
+      const employeeDatas = employeeList?.data;
 
-
+      console.log(employeeDatas)
       return (
             <div>
                   <SectionIntro title={'All_Employee List'}></SectionIntro>
-                  <TableUsable tableHead={tableHead} tableRow={employeeList?.data} setVerify={setVerify} refetch={refetch} handlePay={handlePay} handleDetails={handleDetails}></TableUsable>
-
+                  <div className='flex justify-between px-12 my-10 border-b py-4'>
+                        <div></div>
+                        <div>
+                              {!tableView ? <Button onClick={()=>setTableView(true)} className='flex gap-2'>
+                                    See Table View <RxTable></RxTable>
+                              </Button>:<Button onClick={()=>setTableView(false)} className='flex gap-2'>
+                                    See Grid View <RxGrid></RxGrid>
+                              </Button>}
+                        </div>
+                  </div>
+                 {tableView && <TableUsable tableHead={tableHead} tableRow={employeeList?.data} setVerify={setVerify} refetch={refetch} handlePay={handlePay} handleDetails={handleDetails}></TableUsable>}
+                 {!tableView && <div className='grid lg:grid-cols-3 md:grid-cols-2'>
+                        {
+                              employeeDatas.map((employee, inx) => <EmployeeCard key={inx} employeeData={employee}></EmployeeCard>)
+                        }
+                  </div>}
 
                   <ReactModal
                         isOpen={showPayModal}
@@ -182,6 +222,10 @@ console.log(employeeList.data)
                                                       ))}
                                                 </select>
                                           </div>
+                                    </div>
+                                    <div className='flex justify-between items-center gap-3'>
+                                          <span className=' flex-nowrap'>Salary Amount Of Employee</span>
+                                          <input onChange={handleSalary} defaultValue={salary} placeholder='Please Write here Pay Amount' className=' flex-1 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' type="number" />
                                     </div>
                                     <div className="flex items-end justify-between mt-4">
                                           <button
