@@ -21,6 +21,7 @@ This project is a comprehensive Employee Management System built with React, pro
      - Access to an employee list with verification status.
      - Ability to verify employees and pay them with a convenient modal interface.
      - Detailed employee information page, including a dynamic chart for salary tracking.
+     - Grid View and Table View for HR
 
    - **Employee Dashboard:**
      - Access to a payment history table, sorted by month, displaying salary details.
