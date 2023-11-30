@@ -3,7 +3,7 @@
 This project is a comprehensive Employee Management System built with React, providing a user-friendly interface for managing employees' information, contracts, and work-related tasks.
 
 ## Live Link
-[Employee Management System](https://employee-management-2e28f.web.app/)
+[Employee Management System](https://glittering-frangipane-69d820.netlify.app/)
 
 ## Project Overview
 
