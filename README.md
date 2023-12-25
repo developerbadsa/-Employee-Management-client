@@ -3,7 +3,8 @@
 This project is a comprehensive Employee Management System built with React, providing a user-friendly interface for managing employees' information, contracts, and work-related tasks.
 
 ## Live Link
-[Employee Management System](https://glittering-frangipane-69d820.netlify.app/)
+[Employee Management System Live](https://glittering-frangipane-69d820.netlify.app/)
+[Employee Management System Server](https://github.com/developerbadsa/task-management-platform-Server.git)
 
 ## Project Overview
 
@@ -32,7 +33,7 @@ This project is a comprehensive Employee Management System built with React, pro
      - Admin-exclusive features include making an employee HR and firing them.
 
 4. **Contact Us Page:**
-   - A dedicated "Contact Us" page with a dummy company address and a user-friendly form for visitors to send their opinions.
+   - A dedicated "Contact Us" page with a dummy company address and a user-friendly form for visitors to send their opinions and all will be save to database.
 
 5. **Technologies Used:**
    - React for the frontend, incorporating various packages such as Recharts for charts, Firebase for authentication, and Axios for API requests.
