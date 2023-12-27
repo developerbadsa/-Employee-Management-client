@@ -9,18 +9,12 @@ const Login = () => {
 
       const goto = useNavigate()
       const axiosPublic = useAxiosPublic()
-      const { login, setLoading, user, logout} = useAuth()
+      const { login, setLoading, user, logout } = useAuth()
 
       const handleLogin = (e) => {
             e.preventDefault()
-            const email = e.target.email.value
-            const password = e.target.password.value
-
-            //    const LoginFormData = {
-            //        email, password
-            //    }
-
-
+            const email = e?.target.email.value
+            const password = e?.target.password.value
 
             login(email, password)
                   .then(res => {
@@ -39,7 +33,7 @@ const Login = () => {
                                           })
 
                                           goto('/dashboard/profile')
-                                    }else{
+                                    } else {
                                           logout()
                                     }
                               })

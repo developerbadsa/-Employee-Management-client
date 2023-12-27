@@ -8,7 +8,7 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic/useAxiosPublic';
 
 const Registration = () => {
       const [imgUrl, setImgUrl] = useState(null)
-      const { createUser, user, loading,setLoading , updateUserProfile} = useAuth()
+      const { createUser, user, loading, setLoading, updateUserProfile } = useAuth()
       const goto = useNavigate()
       const axiosPublic = useAxiosPublic()
 
@@ -39,7 +39,7 @@ const Registration = () => {
             const password = e.target.password.value
             const photo = e.target.photo.files[0]
             setLoading(false)
-            
+
 
             const imgApiSecret = import.meta.env.VITE_IMGAPI
             const imgApi = `https://api.imgbb.com/1/upload?key=${imgApiSecret}`
@@ -62,7 +62,7 @@ const Registration = () => {
                   const hasUppercase = /[A-Z]/.test(password);
                   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-               if (password.length < 6) {
+                  if (password.length < 6) {
                         Swal.fire({
                               icon: "error",
                               title: "Oops...",
@@ -92,45 +92,45 @@ const Registration = () => {
                         try {
 
                               await createUser(email, password)
-                              .then( async ()=>{
+                                    .then(async () => {
 
-                                   await updateUserProfile(name, photoLink)
+                                          await updateUserProfile(name, photoLink)
 
-                                    const FormDataRes = await axiosPublic.post('/users', RegisterFormData)
-                                    if(FormDataRes.data.insertedId){
-                                          Swal.fire({
-                                                icon: "success",
-                                                title: "Registration Success",
-                                                showConfirmButton: false,
-                                                timer: 1500
-                                            })
-                                            goto('/dashboard/profile')
-        
-                                            window.location.reload()
-                                    }else{
-                                          Swal.fire({
-                                                icon: "warning",
-                                                title: `Essue with register`,
-                                                showConfirmButton: false,
-                                                timer: 1500
-                                            })
+                                          const FormDataRes = await axiosPublic.post('/users', RegisterFormData)
+                                          if (FormDataRes.data.insertedId) {
+                                                Swal.fire({
+                                                      icon: "success",
+                                                      title: "Registration Success",
+                                                      showConfirmButton: false,
+                                                      timer: 1500
+                                                })
+                                                goto('/dashboard/profile')
+
+                                                window.location.reload()
+                                          } else {
+                                                Swal.fire({
+                                                      icon: "warning",
+                                                      title: `Essue with register`,
+                                                      showConfirmButton: false,
+                                                      timer: 1500
+                                                })
+                                          }
+
+
                                     }
-                                   
-                                     
-                              }  
-                              )
-                      
-                              
-                          } catch (error) {
+                                    )
+
+
+                        } catch (error) {
                               Swal.fire({
                                     icon: 'warning',
                                     title: `${error?.code}`,
                                     showConfirmButton: false,
                                     timer: 1500
-                                })
-                                      }
-                                      
-                         
+                              })
+                        }
+
+
                   }
 
 
