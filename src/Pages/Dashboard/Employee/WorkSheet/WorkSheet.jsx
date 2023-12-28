@@ -73,7 +73,8 @@ const WorkSheet = () => {
             return <LoadingSpinner></LoadingSpinner>
       } else {
             const tableData = employeeData || exampleData;
-console.log(isTable)
+
+
             return (
                   <div className='lg:px-20'>
 
@@ -130,7 +131,11 @@ console.log(isTable)
                         {
                              !isTable? <TableUsable tableHead={["Task Name", "Worked/Hours", "Date"]} tableRow={tableData}></TableUsable>
                              : 
-                             <TableGridCard tableData={tableData}></TableGridCard>
+                            tableData?.map((data, idx)=>{
+
+                              console.log(data, tableData)
+                             return <TableGridCard key={idx} data={data}></TableGridCard>
+                            })
                         //      console.log(tableData)
                         }
                   </div>
