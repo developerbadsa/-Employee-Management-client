@@ -1,35 +1,37 @@
-import React from 'react';
-import TableUsable from '../../../Components/Table/WorkSheettable';
-import useAxiosSecure from '../../../Hooks/AxiosSecure/useAxiosSecure';
-import useAuth from '../../../Hooks/useAuth';
-import { RxCardStackPlus } from 'react-icons/rx';
+import React, { useState } from 'react';
+import TableUsable from '../../../../Components/Table/WorkSheettable';
+import useAxiosSecure from '../../../../Hooks/AxiosSecure/useAxiosSecure';
+import useAuth from '../../../../Hooks/useAuth';
+import { RxCardStackPlus, RxGrid, RxTable } from 'react-icons/rx';
 import Swal from 'sweetalert2';
 import { useQuery } from 'react-query';
-import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
+import TableGridCard from './TableGridCard';
 
 const WorkSheet = () => {
       const axiosSecure = useAxiosSecure();
       const { user } = useAuth();
+      const [isTable, setisTable] = useState(false)
 
 
       const { data: employeeData, isLoading, refetch } = useQuery({
             queryKey: ['tasklist', user?.email],
             queryFn: async () => {
-              try {
-                if (user) {
-                  const userEmail = user?.email;
-                  const isEmployeeResponse = await axiosSecure.get('/employee-task', {
-                    params: { email: userEmail }
-                  });
-                  return isEmployeeResponse.data;
-                }
-              } catch (error) {
-                throw new Error('Error fetching employee tasks: ' + error.message);
-              }
+                  try {
+                        if (user) {
+                              const userEmail = user?.email;
+                              const isEmployeeResponse = await axiosSecure.get('/employee-task', {
+                                    params: { email: userEmail }
+                              });
+                              return isEmployeeResponse.data;
+                        }
+                  } catch (error) {
+                        throw new Error('Error fetching employee tasks: ' + error.message);
+                  }
             },
             enabled: !!user?.email,
-          });
-          
+      });
+
 
       const exampleData = [
             {
@@ -38,10 +40,10 @@ const WorkSheet = () => {
                   tnxid: "d"
             }
       ];
-  
 
 
-      const handleSubmitTask = (e)=>{
+
+      const handleSubmitTask = (e) => {
             e.preventDefault()
             const task = e.target.task.value;
             const workedHours = e.target.hours.value;
@@ -53,26 +55,25 @@ const WorkSheet = () => {
                   task, workedHours, workedDate, userName, userEmail
             }
             axiosSecure.post(`/employee-tasks/?email=${userEmail}`, employeeTask)
-            .then(res=>{
-                  if(res?.data.acknowledged ){
-                        refetch()
-                        Swal.fire({
-                              icon: "success",
-                              title: "Your work has been saved",
-                              showConfirmButton: false,
-                              timer: 1500
-                            });
-                  }
-            })
+                  .then(res => {
+                        if (res?.data.acknowledged) {
+                              refetch()
+                              Swal.fire({
+                                    icon: "success",
+                                    title: "Your work has been saved",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                              });
+                        }
+                  })
 
-            console.log(employeeTask)
       }
 
-      if (isLoading ) {
+      if (isLoading) {
             return <LoadingSpinner></LoadingSpinner>
       } else {
             const tableData = employeeData || exampleData;
-
+console.log(isTable)
             return (
                   <div className='lg:px-20'>
 
@@ -81,9 +82,9 @@ const WorkSheet = () => {
                               <div className="grid md:grid-cols-4 grid-cols-2 gap-6 justify-center items-center  overflow-x-auto relative ">
                                     <div className='flex flex-col justify-center'>
                                           <select
-                                                id="dropdown" 
+                                                id="dropdown"
                                                 name='task'
-                                                onChange={(e) => {}}
+                                                onChange={(e) => { }}
                                                 className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                                           >
                                                 <option value="c">Please Select Your Task</option>
@@ -108,7 +109,7 @@ const WorkSheet = () => {
                                           <input
                                                 type="date"
                                                 name='workdate'
-                                                
+
                                                 required
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Select date"
@@ -122,8 +123,16 @@ const WorkSheet = () => {
                                     </div>
                               </div>
                         </form>
-                                                <h4 className='text-xl font-semibold text-center mt-5 border-t'>Your All Tasks</h4>
-                        <TableUsable tableHead={["Task Name", "Worked/Hours", "Date"]} tableRow={tableData}></TableUsable>
+                        <h4 className='text-xl font-semibold text-center mt-5 border-t'>Your All Tasks</h4>
+                        <div className='float-right px-4'>
+                              {isTable ? <RxTable title='Table View' onClick={()=>setisTable(false)}></RxTable>: <RxGrid title='Grid Card View' onClick={()=>setisTable(true)}></RxGrid>}
+                        </div>
+                        {
+                             !isTable? <TableUsable tableHead={["Task Name", "Worked/Hours", "Date"]} tableRow={tableData}></TableUsable>
+                             : 
+                             <TableGridCard tableData={tableData}></TableGridCard>
+                        //      console.log(tableData)
+                        }
                   </div>
             );
       }

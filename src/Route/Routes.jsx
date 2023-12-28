@@ -9,7 +9,7 @@ import EmployeeList from "../Pages/Dashboard/HR/EmployeeList/EmployeeList";
 import UserDetails from "../Pages/UserDetails/UserDetails";
 import Progress from "../Pages/Dashboard/HR/Progress/progress";
 import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory/PaymentHistory";
-import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
+import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet/WorkSheet";
 import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
 import ErrorPage from "../Pages/ErrorPage";
 import LoggedOutPrivate from "./PrivateRoute/LoggedInPrivate/LoggedOutPrivate";
