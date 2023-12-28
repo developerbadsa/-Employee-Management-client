@@ -126,17 +126,17 @@ const WorkSheet = () => {
                         </form>
                         <h4 className='text-xl font-semibold text-center mt-5 border-t'>Your All Tasks</h4>
                         <div className='float-right px-4'>
-                              {isTable ? <RxTable title='Table View' onClick={()=>setisTable(false)}></RxTable>: <RxGrid title='Grid Card View' onClick={()=>setisTable(true)}></RxGrid>}
+                              {isTable ? <RxTable title='Table View' onClick={() => setisTable(false)}></RxTable> : <RxGrid title='Grid Card View' onClick={() => setisTable(true)}></RxGrid>}
                         </div>
                         {
-                             !isTable? <TableUsable tableHead={["Task Name", "Worked/Hours", "Date"]} tableRow={tableData}></TableUsable>
-                             : 
-                            tableData?.map((data, idx)=>{
-
-                              console.log(data, tableData)
-                             return <TableGridCard key={idx} data={data}></TableGridCard>
-                            })
-                        //      console.log(tableData)
+                              !isTable ? <TableUsable tableHead={["Task Name", "Worked/Hours", "Date"]} tableRow={tableData}></TableUsable>
+                                    :
+                                    <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 justify-center px-5'>
+                                          {tableData?.map((data, idx) => {
+                                                return <TableGridCard key={idx} data={data}></TableGridCard>
+                                          })}
+                                    </div>
+                              //      console.log(tableData)
                         }
                   </div>
             );
