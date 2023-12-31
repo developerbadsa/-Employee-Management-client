@@ -1,13 +1,10 @@
-import React from 'react';
+
 import {
       Card,
       CardBody,
-      CardFooter,
       Typography,
-      Button,
     } from "@material-tailwind/react";
-     
-//     {task, workedDate, workedHours}
+
 const TableGridCard = ({data}) => {
       const {task, workedDate, workedHours} = data;
 
