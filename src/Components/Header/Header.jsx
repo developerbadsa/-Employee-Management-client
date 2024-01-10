@@ -10,7 +10,6 @@ import {
       Avatar,
       IconButton,
       Collapse,
-      Badge,
 } from "@material-tailwind/react";
 import {
       UserCircleIcon,
@@ -21,7 +20,6 @@ import {
 import SiteLogo from "./SiteLogo";
 import { NavLink } from "react-router-dom";
 import { RxDashboard, RxEnvelopeOpen } from "react-icons/rx";
-import {CheckIcon} from "@heroicons/react/24/outline";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -50,10 +48,10 @@ function ProfileMenu() {
                         <Button
                               variant="text"
                               color="blue-gray"
-                              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto border p-1"
+                              className="flex items-center gap-1 rounded-full text-blue-600 py-0.5 pr-2 pl-0.5 lg:ml-auto border p-1"
                         >
                               <div className="px-4">
-                              <span className="px-3">{user?.displayName}</span>
+                                    <span className="px-3">{user?.displayName}</span>
                               </div>
                               <Avatar
                                     variant="circular"
@@ -70,7 +68,7 @@ function ProfileMenu() {
                         </Button>
                   </MenuHandler>
 
-                  <MenuList className="p-1">
+                  <MenuList className="p-1 text-blue-600">
 
                         {profileMenuItems.map(({ label, icon }, key) => {
                               const handleLogout = () => {
@@ -128,7 +126,7 @@ function ProfileMenu() {
 function NavList() {
 
 
-      const {user} = useAuth()
+      const { user } = useAuth()
       return (
             <ul className="mt-2 mb-4 flex flex-col  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:justify-center text-black ml-[100px] gap-5">
 
