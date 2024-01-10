@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+
+import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
 import TableUsable from '../../../../Components/Table/paymenthistory';
 import useAxiosSecure from '../../../../Hooks/AxiosSecure/useAxiosSecure';
 import useAuth from '../../../../Hooks/useAuth';
@@ -8,7 +9,7 @@ const PaymentHistory = () => {
       const axiosSecure = useAxiosSecure()
       const {user} = useAuth()
 
-      const { data: employeeData, isLoading, isError } = useQuery({
+      const { data: employeeData, isLoading } = useQuery({
             queryKey: ['employeeList', user?.email],
             queryFn: async () => {
               try {
@@ -31,7 +32,7 @@ const PaymentHistory = () => {
           ]
 
           if (isLoading && !employeeData) {
-            return 'loading';
+            return <LoadingSpinner></LoadingSpinner>;
           } else {
             const tableData = employeeData || exampleData; 
           

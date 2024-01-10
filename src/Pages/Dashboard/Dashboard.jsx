@@ -89,7 +89,7 @@ const Dashboard = () => {
                                                       </li>
                                                 </>
                                           }
-
+                                                {/* Employee only */}
                                           {
                                                 isEmployee && <>
                                                       <li className="flex items-center w-full border dark:hover:bg-gray-800">
