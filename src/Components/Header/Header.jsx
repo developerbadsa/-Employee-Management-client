@@ -170,10 +170,10 @@ export const Header = () => {
 
 
       return (
-            <Navbar className="mx-auto max-w-screen-xl p-2  lg:pl-6 shadow-none">
+            <Navbar className="mx-auto max-w-screen-xl  lg:pl-6 shadow-none">
                   <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
                         <Typography
-                              className="mr-4 ml-2 cursor-pointer py-1.5 font-medium hidden sm:flex"
+                              className="mr-4 ml-2 cursor-pointer font-medium hidden sm:flex"
                         >
                               <SiteLogo></SiteLogo>
                         </Typography>
@@ -187,7 +187,7 @@ export const Header = () => {
                               onClick={toggleIsNavOpen}
                               className="ml-12 mr-2 lg:hidden"
                         >
-                              <Bars2Icon className="h-6 w-6" />
+                              <Bars2Icon className="h-5 w-6" />
                         </IconButton>
 
 
