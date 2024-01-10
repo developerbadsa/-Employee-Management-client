@@ -86,7 +86,7 @@ function ProfileMenu() {
                               return (
                                     <MenuItem
                                           key={label}
-                                          onClick={() => closeMenu, handleLogout}
+                                          onClick={() => { closeMenu, handleLogout }}
                                           className={`flex items-center gap-2 rounded ${isLastItem
                                                 ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                                                 : ""
@@ -121,17 +121,13 @@ function ProfileMenu() {
 
 
 // nav list component
-
-
 function NavList() {
-
-
       const { user } = useAuth()
       return (
             <ul className="mt-2 mb-4 flex flex-col  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:justify-center text-black ml-[100px] gap-5">
 
                   {user && <NavLink
-                        to='/dashboard'
+                        to='/dashboard/profile'
                         className={({ isActive, isPending }) =>
                               isPending ? "text-red-400" : isActive ? "text-blue-600" : ""
                         }
